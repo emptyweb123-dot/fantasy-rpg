@@ -48,7 +48,7 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 .inventory-header{flex:none;display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 14px 12px;background:#0c1118f2;border-bottom:1px solid #54768b;box-shadow:0 6px 20px #0008}
 .inventory-header h2{margin:0;text-align:center;color:#e5c58e;font:bold 19px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
 .inventory-back{width:44px;height:44px;padding:0;border:1px solid #58778d;border-radius:7px;background:linear-gradient(#314d61,#172a38);color:#f4e4c7;font:30px/1 Arial,sans-serif}
-.inventory-categories{flex:none;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;padding:12px 8px;border-bottom:1px solid #456174;background:#101b24dd}
+.inventory-categories{width:100%;flex:none;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;padding:12px 8px;border-bottom:1px solid #456174;background:#101b24dd}
 .inventory-category{min-width:0;height:48px;padding:3px;border:1px solid #49687d;border-radius:6px;background:linear-gradient(#263f50,#142734);color:#f5e7cc;font:24px/1 Arial,sans-serif;box-shadow:inset 0 1px #ffffff14}
 .inventory-category.active{border-color:#f0c56b;background:linear-gradient(#477896,#214a62);box-shadow:0 0 10px #62b9e866,inset 0 1px #ffffff2e}
 .inventory-items{width:min(700px,100%);flex:1;overflow-y:auto;overscroll-behavior:contain;margin:0 auto;padding:12px 8px calc(20px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-content:start;gap:6px}
@@ -57,6 +57,19 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 .inventory-item-icon{font-size:clamp(26px,9vw,48px);line-height:1;filter:drop-shadow(0 2px 3px #000)}
 .inventory-item-count{position:absolute;right:4px;bottom:2px;color:#fff;font:bold 12px Arial,sans-serif;text-shadow:0 2px 3px #000}
 @media(max-width:520px){.inventory-header{grid-template-columns:42px 1fr 42px;padding-left:10px;padding-right:10px}.inventory-back{width:40px;height:40px}.inventory-categories{gap:4px;padding:10px 6px}.inventory-category{height:44px;font-size:21px}.inventory-items{gap:5px;padding:10px 6px calc(16px + env(safe-area-inset-bottom))}.inventory-item-count{font-size:11px}}
+#mapScreen{display:none;position:fixed;inset:0;z-index:4;flex-direction:column;background:#15202a;color:#f2e6d0;font-family:Georgia,serif}
+#mapScreen.active{display:flex}
+.map-header{flex:none;display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 14px 12px;background:#0c1118f2;border-bottom:1px solid #54768b;box-shadow:0 6px 20px #0008;z-index:2}
+.map-header h2{margin:0;text-align:center;color:#e5c58e;font:bold 19px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.map-back{width:44px;height:44px;padding:0;border:1px solid #58778d;border-radius:7px;background:linear-gradient(#314d61,#172a38);color:#f4e4c7;font:30px/1 Arial,sans-serif}
+.map-scroll{position:relative;flex:1;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#7b6845 #17252b}
+.map-world{position:relative;width:100%;height:1600px;overflow:hidden;background:linear-gradient(180deg,#827d42 0%,#b4a14f 18%,#695538 34%,#b19a4b 50%,#496440 66%,#927e3d 82%,#28534d 100%)}
+.map-art{position:absolute;inset:0;width:100%;height:100%;display:block}
+.map-stages{position:absolute;inset:0;z-index:1}
+.map-stage{position:absolute;transform:translate(-50%,-50%);width:58px;height:44px;display:grid;place-items:center;border:2px solid #c9a55d;border-radius:50%;background:linear-gradient(180deg,#47356b,#251a43);box-shadow:0 3px 7px #100b1bcc,inset 0 1px #ffffff40;color:#fff0c9;font:bold 16px Arial,sans-serif;text-shadow:0 2px 3px #000}
+.map-stage.current{border-color:#fff0a0;box-shadow:0 0 0 4px #f2cd5b55,0 0 20px #ffd45c,inset 0 1px #ffffff70}
+.map-stage.current::after{content:"";position:absolute;top:-10px;width:11px;height:11px;border:2px solid #fff0a0;border-radius:50%;background:#f8df74;box-shadow:0 0 10px #ffd45c}
+@media(max-width:520px){.map-header{grid-template-columns:42px 1fr 42px;padding-left:10px;padding-right:10px}.map-back{width:40px;height:40px}.map-world{height:1550px}.map-stage{width:54px;height:42px;font-size:15px}}
 </style>
 </head>
 <body>
@@ -76,7 +89,7 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
  <nav class="game-bottom" aria-label="Игровое меню">
   <button id="openHeroes" type="button"><span class="nav-icon" aria-hidden="true">🛡️</span>Герои</button>
   <button id="openInventory" type="button"><span class="nav-icon" aria-hidden="true">🎒</span>Инвентарь</button>
-  <button class="map-button" type="button" aria-label="Карта"><span class="nav-icon" aria-hidden="true">🗺️</span></button>
+  <button class="map-button" id="openMap" type="button" aria-label="Карта"><span class="nav-icon" aria-hidden="true">🗺️</span></button>
   <button type="button"><span class="nav-icon" aria-hidden="true">⚔️</span>Кампания</button>
   <button type="button"><span class="nav-icon" aria-hidden="true">📜</span>Приключения</button>
  </nav>
@@ -105,6 +118,34 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
   <button class="inventory-category" type="button" data-category="coins" aria-label="Монеты" title="Монеты">🪙</button>
  </nav>
  <div class="inventory-items" id="inventoryItems" aria-label="Список предметов"><p class="inventory-empty" id="inventoryEmpty">Инвентарь пока пуст</p></div>
+</section>
+<section id="mapScreen" aria-label="Карта уровней">
+ <header class="map-header">
+  <button class="map-back" id="closeMap" type="button" aria-label="Назад">‹</button>
+  <h2>Карта</h2>
+  <span aria-hidden="true"></span>
+ </header>
+ <div class="map-scroll" id="mapScroll" tabindex="0" aria-label="Прокручиваемая карта уровней">
+  <div class="map-world">
+   <svg class="map-art" viewBox="0 0 400 1550" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+     <linearGradient id="land" x2="0" y2="1"><stop stop-color="#4f7970"/><stop offset=".16" stop-color="#c1ac54"/><stop offset=".34" stop-color="#886443"/><stop offset=".52" stop-color="#c8a951"/><stop offset=".7" stop-color="#53745a"/><stop offset=".86" stop-color="#b8a250"/><stop offset="1" stop-color="#285a58"/></linearGradient>
+     <linearGradient id="trail" x2="0" y2="1"><stop stop-color="#d9b96c"/><stop offset="1" stop-color="#967143"/></linearGradient>
+     <linearGradient id="crystal" x2="1" y2="1"><stop stop-color="#ed8bff"/><stop offset=".5" stop-color="#7848d8"/><stop offset="1" stop-color="#33267d"/></linearGradient>
+     <pattern id="groundMarks" width="44" height="48" patternUnits="userSpaceOnUse"><circle cx="9" cy="12" r="2" fill="#fff4ad" opacity=".18"/><circle cx="31" cy="34" r="3" fill="#183b37" opacity=".2"/><path d="M18 6l4 5m-7 26 5-3" stroke="#f8dc81" stroke-width="2" opacity=".15"/></pattern>
+    </defs>
+    <rect width="400" height="1550" fill="url(#land)"/><rect width="400" height="1550" fill="url(#groundMarks)"/>
+    <path d="M0 0H86Q65 72 0 98ZM400 75Q342 128 400 195ZM0 330Q75 375 0 455ZM400 610Q332 684 400 742ZM0 880Q82 939 0 1018ZM400 1190Q315 1248 400 1312ZM0 1420Q68 1483 0 1550" fill="#275c63" opacity=".85"/>
+    <path d="M80 105 C30 150 310 180 280 250 S100 330 144 395 S340 470 312 540 S30 610 88 685 S330 760 252 830 S60 900 140 975 S350 1040 312 1120 S40 1180 100 1265 S350 1330 244 1410" fill="none" stroke="#60452e" stroke-width="72" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M80 105 C30 150 310 180 280 250 S100 330 144 395 S340 470 312 540 S30 610 88 685 S330 760 252 830 S60 900 140 975 S350 1040 312 1120 S40 1180 100 1265 S350 1330 244 1410" fill="none" stroke="url(#trail)" stroke-width="58" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M80 105 C30 150 310 180 280 250 S100 330 144 395 S340 470 312 540 S30 610 88 685 S330 760 252 830 S60 900 140 975 S350 1040 312 1120 S40 1180 100 1265 S350 1330 244 1410" fill="none" stroke="#f0d889" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 16" opacity=".55"/>
+    <g fill="#293b38" stroke="#536957" stroke-width="5" opacity=".9"><ellipse cx="47" cy="210" rx="26" ry="17"/><ellipse cx="356" cy="320" rx="34" ry="20"/><ellipse cx="45" cy="520" rx="30" ry="20"/><ellipse cx="350" cy="790" rx="32" ry="22"/><ellipse cx="46" cy="1080" rx="31" ry="20"/><ellipse cx="356" cy="1360" rx="28" ry="18"/></g>
+    <g fill="url(#crystal)" stroke="#c28bff" stroke-width="3"><path d="M26 282l15-50 16 48-12 11z"/><path d="M40 292l21-64 13 60-16 12z"/><path d="M337 455l13-49 18 43-12 12z"/><path d="M315 470l22-65 10 68-17 8z"/><path d="M42 760l16-54 15 51-14 13z"/><path d="M324 930l19-60 15 58-15 11z"/><path d="M26 1190l17-53 15 54-13 10z"/><path d="M334 1480l16-50 17 52-15 11z"/></g>
+    <g fill="#52645a" stroke="#303d38" stroke-width="5"><path d="M27 600l21-27 21 28-8 21H34z"/><path d="M328 715l24-31 21 33-10 18h-28z"/><path d="M30 1005l22-28 23 31-11 17H38z"/><path d="M322 1180l25-32 21 35-10 18h-29z"/></g>
+   </svg>
+   <div class="map-stages" id="mapStages" aria-label="Уровни 1–10"></div>
+  </div>
+ </div>
 </section>\n<div class="modal" id="createModal" role="dialog" aria-modal="true" aria-labelledby="createTitle">
  <section class="dialog">
   <h2 id="createTitle">Создание персонажа</h2>
@@ -124,6 +165,9 @@ const heroesList=document.getElementById('heroesList');
 const inventoryScreen=document.getElementById('inventoryScreen');
 const inventoryItemsElement=document.getElementById('inventoryItems');
 const inventoryEmpty=document.getElementById('inventoryEmpty');
+const mapScreen=document.getElementById('mapScreen');
+const mapScroll=document.getElementById('mapScroll');
+const mapStages=document.getElementById('mapStages');
 let selectedInventoryCategory='all';
 const inventoryItems=[];
 let selectedGender='Мужской';
@@ -135,6 +179,9 @@ function renderInventory(){inventoryItemsElement.querySelectorAll('.inventory-it
 document.getElementById('openInventory').onclick=()=>{selectedInventoryCategory='all';document.querySelectorAll('.inventory-category').forEach(button=>{button.classList.remove('active');button.setAttribute('aria-pressed','false')});renderInventory();inventoryScreen.classList.add('active')};
 document.getElementById('closeInventory').onclick=()=>inventoryScreen.classList.remove('active');
 document.querySelectorAll('.inventory-category').forEach(button=>button.onclick=()=>{selectedInventoryCategory=button.dataset.category;document.querySelectorAll('.inventory-category').forEach(categoryButton=>{const active=categoryButton===button;categoryButton.classList.toggle('active',active);categoryButton.setAttribute('aria-pressed',String(active))});renderInventory()});
+document.getElementById('openMap').onclick=()=>{const save=loadSave();renderMap(save?.chapter||1);mapScreen.classList.add('active')};
+document.getElementById('closeMap').onclick=()=>mapScreen.classList.remove('active');
+function renderMap(currentLevel){mapStages.replaceChildren();const columns=[20,70,36,78,22,63,35,78,25,61];const yStart=105;const yStep=145;const activeLevel=Math.min(10,Math.max(1,Number(currentLevel)||1));for(let level=1;level<=10;level++){const node=document.createElement('div');node.className=`map-stage${level===activeLevel?' current':''}`;node.textContent=level;node.setAttribute('role','img');node.setAttribute('aria-label',`Уровень ${level}${level===activeLevel?', текущий':''}`);node.style.left=`${columns[level-1]}%`;node.style.top=`${yStart+(level-1)*yStep}px`;mapStages.append(node)}mapScroll.scrollTop=0;requestAnimationFrame(()=>{if(activeLevel>1){const currentNode=mapStages.querySelector('.map-stage.current');mapScroll.scrollTop=Math.max(0,currentNode.offsetTop-mapScroll.clientHeight*.42)}})}
 document.getElementById('new').onclick=()=>{modal.classList.add('open');document.getElementById('nickname').focus()};
 document.getElementById('cancelCreate').onclick=()=>{modal.classList.remove('open')};
 document.querySelectorAll('[data-gender]').forEach(b=>b.onclick=()=>{selectedGender=b.dataset.gender;document.querySelectorAll('[data-gender]').forEach(x=>x.classList.toggle('selected',x===b))});
