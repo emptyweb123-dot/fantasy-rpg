@@ -44,6 +44,45 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 .hero-card-role{margin-top:4px;color:#d7c4a2;font:12px Arial,sans-serif}
 .hero-card-level{margin-top:7px;color:#e6c78f;font:bold 14px Arial,sans-serif}
 @media(max-width:520px){.heroes-header{grid-template-columns:42px 1fr 42px;padding-left:10px;padding-right:10px}.heroes-back{width:40px;height:40px}.heroes-list{padding:12px 9px calc(18px + env(safe-area-inset-bottom));gap:8px}.hero-card{min-height:94px;grid-template-columns:70px minmax(0,1fr);gap:12px;padding:8px}.hero-avatar{width:68px;height:68px}.hero-card-name{font-size:16px}}
+.hero-card{cursor:pointer;text-align:left;color:inherit;font:inherit}
+.hero-card:focus-visible{outline:2px solid #f0c56b;outline-offset:2px}
+.hero-detail-screen,.hero-subscreen{display:none;position:fixed;inset:0;flex-direction:column;color:#f2e6d0;font-family:Georgia,serif}
+.hero-detail-screen{z-index:5;background:radial-gradient(ellipse at 50% 20%,#35291f,#141416 60%,#090a0c)}
+.hero-detail-screen.active,.hero-subscreen.active{display:flex}
+.hero-subscreen{z-index:6;background:radial-gradient(ellipse at 50% 18%,#263b48,#10191f 60%,#080e12)}
+.subscreen-header{flex:none;display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 14px 12px;background:#0c1118f2;border-bottom:1px solid #54768b;box-shadow:0 6px 20px #0008}
+.subscreen-header h2{margin:0;text-align:center;color:#e5c58e;font:bold 18px Arial,sans-serif;letter-spacing:.05em;text-transform:uppercase}
+.subscreen-back{width:44px;height:44px;padding:0;border:1px solid #58778d;border-radius:7px;background:linear-gradient(#314d61,#172a38);color:#f4e4c7;font:30px/1 Arial,sans-serif}
+.hero-detail-content,.hero-subscreen-content{width:min(640px,100%);flex:1;overflow-y:auto;overscroll-behavior:contain;margin:0 auto;padding:12px 12px calc(20px + env(safe-area-inset-bottom))}
+.hero-profile{display:grid;grid-template-columns:112px minmax(0,1fr);align-items:center;gap:14px;padding:14px;border:1px solid #8f7047;border-radius:10px;background:linear-gradient(120deg,#493426,#201a17);box-shadow:inset 0 1px #ffffff16,0 4px 12px #0008}
+.hero-profile .hero-avatar{width:108px;height:108px;border-width:5px}
+.hero-profile-name{margin:0;color:#f0d19a;font:bold 21px Georgia,serif}
+.hero-profile-role{margin:6px 0 0;color:#d4c1a0;font:bold 12px Arial,sans-serif}
+.hero-description{margin:8px 0 0;color:#c6b99f;font:13px/1.4 Arial,sans-serif}
+.hero-stats{display:flex;flex-direction:column;gap:0;margin:12px 0;padding:0;border:1px solid #514436;border-radius:8px;background:#17191bdc;list-style:none}
+.hero-stats li{display:flex;justify-content:space-between;gap:12px;padding:11px 13px;border-bottom:1px solid #ffffff18;font:13px Arial,sans-serif}
+.hero-stats li:last-child{border-bottom:0}
+.hero-stats span{color:#d8c7aa}.hero-stats strong{color:#f4dda8;font-size:14px}
+.hero-detail-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:12px}
+.hero-detail-actions button{min-width:0;padding:12px 4px;border-radius:7px;font-size:clamp(9px,2.7vw,12px);letter-spacing:0}
+.subscreen-section-title{margin:14px 2px 8px;color:#e7c88e;font:bold 14px Arial,sans-serif;letter-spacing:.04em}
+.slot-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.gear-slot{min-width:0;min-height:78px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:5px 2px;border:1px solid #5d7482;border-radius:6px;background:linear-gradient(145deg,#202c34,#10171c);box-shadow:inset 0 1px #ffffff18}
+.gear-slot-icon{font-size:25px;line-height:1;filter:drop-shadow(0 2px 2px #000)}
+.gear-slot-label{color:#d6c9b4;font:9px Arial,sans-serif;text-align:center;line-height:1.15}
+.empty-inventory{margin:0;padding:14px;border:1px dashed #5d7482;border-radius:7px;color:#aebbc1;background:#121b20aa;font:13px Arial,sans-serif;text-align:center}
+.hero-item-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.hero-item-grid .empty-inventory{grid-column:1/-1}
+.amulet-slots{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:12px}
+.amulet-slot{min-height:88px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:2px solid #597a80;border-radius:9px;background:linear-gradient(145deg,#263b40,#10191d);box-shadow:inset 0 1px #ffffff18}
+.amulet-slot .gear-slot-icon{font-size:30px;color:#aadbd0}
+.skill-list{display:flex;flex-direction:column;gap:10px}
+.skill-card{display:grid;grid-template-columns:68px minmax(0,1fr);align-items:center;gap:12px;padding:11px;border:1px solid #596c7a;border-radius:9px;background:linear-gradient(120deg,#263741,#151e24);box-shadow:inset 0 1px #ffffff16,0 3px 9px #0008}
+.skill-icon{width:64px;height:64px;display:grid;place-items:center;border:3px solid #748991;border-radius:6px;background:radial-gradient(circle at 35% 30%,#4f8b88,#131c22 72%);font-size:34px;box-shadow:0 2px 7px #0008}
+.skill-type{color:#a9c1c6;font:bold 10px Arial,sans-serif;text-transform:uppercase;letter-spacing:.08em}
+.skill-name{margin:4px 0;color:#f0d19a;font:bold 16px Georgia,serif}
+.skill-description{margin:0;color:#d0c7b6;font:13px/1.4 Arial,sans-serif}
+@media(max-width:520px){.subscreen-header{grid-template-columns:42px 1fr 42px;padding-left:10px;padding-right:10px}.subscreen-back{width:40px;height:40px}.hero-detail-content,.hero-subscreen-content{padding:10px 9px calc(16px + env(safe-area-inset-bottom))}.hero-profile{grid-template-columns:88px minmax(0,1fr);gap:10px;padding:10px}.hero-profile .hero-avatar{width:84px;height:84px}.hero-profile-name{font-size:19px}.hero-description{font-size:12px}.hero-stats li{padding:10px 11px;font-size:12px}.hero-detail-actions{gap:5px}.hero-detail-actions button{font-size:9px;padding:11px 2px}.gear-slot{min-height:70px}.gear-slot-icon{font-size:22px}.gear-slot-label{font-size:8px}.amulet-slots{gap:6px}.amulet-slot{min-height:78px}.skill-card{grid-template-columns:58px minmax(0,1fr);gap:9px;padding:9px}.skill-icon{width:54px;height:54px;font-size:29px}.skill-name{font-size:15px}.skill-description{font-size:12px}}
 #inventoryScreen{display:none;position:fixed;inset:0;z-index:4;flex-direction:column;background:radial-gradient(ellipse at 50% 18%,#243b49,#111a22 55%,#091015);color:#f2e6d0;font-family:Georgia,serif}
 #inventoryScreen.active{display:flex}
 .inventory-header{flex:none;display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 14px 12px;background:#0c1118f2;border-bottom:1px solid #54768b;box-shadow:0 6px 20px #0008}
@@ -102,6 +141,33 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
   <span aria-hidden="true"></span>
  </header>
  <div class="heroes-list" id="heroesList" aria-label="Список героев"></div>
+</section>
+<section class="hero-detail-screen" id="heroDetailScreen" aria-label="Карточка героя">
+ <header class="subscreen-header"><button class="subscreen-back" id="backToHeroes" type="button" aria-label="К списку героев">‹</button><h2 id="detailHeaderName">Герой</h2><span aria-hidden="true"></span></header>
+ <div class="hero-detail-content">
+  <div class="hero-profile"><div class="hero-avatar" id="detailAvatar" aria-hidden="true"></div><div><h3 class="hero-profile-name" id="detailName">Герой</h3><div class="hero-profile-role" id="detailRole"></div><p class="hero-description" id="detailDescription"></p></div></div>
+  <ul class="hero-stats" id="detailStats" aria-label="Характеристики героя"></ul>
+  <div class="hero-detail-actions"><button id="openEquipment" type="button">Снаряжение</button><button id="openAmulets" type="button">Амулеты</button><button id="openSkills" type="button">Скиллы</button></div>
+ </div>
+</section>
+<section class="hero-subscreen" id="equipmentScreen" aria-label="Снаряжение героя">
+ <header class="subscreen-header"><button class="subscreen-back" data-close-subscreen type="button" aria-label="К герою">‹</button><h2 id="equipmentHeaderName">Снаряжение</h2><span aria-hidden="true"></span></header>
+ <div class="hero-subscreen-content">
+  <h3 class="subscreen-section-title">Снаряжение</h3><div class="slot-grid" id="equipmentSlots"></div>
+  <h3 class="subscreen-section-title">Бижутерия</h3><div class="slot-grid" id="jewelrySlots"></div>
+  <h3 class="subscreen-section-title">Инвентарь снаряжения</h3><div class="hero-item-grid" id="equipmentInventory"><p class="empty-inventory">Предметов снаряжения пока нет</p></div>
+ </div>
+</section>
+<section class="hero-subscreen" id="amuletsScreen" aria-label="Амулеты героя">
+ <header class="subscreen-header"><button class="subscreen-back" data-close-subscreen type="button" aria-label="К герою">‹</button><h2 id="amuletsHeaderName">Амулеты</h2><span aria-hidden="true"></span></header>
+ <div class="hero-subscreen-content">
+  <h3 class="subscreen-section-title">Ячейки амулетов</h3><div class="amulet-slots" id="amuletSlots"></div>
+  <h3 class="subscreen-section-title">Инвентарь амулетов</h3><div class="hero-item-grid" id="amuletInventory"><p class="empty-inventory">Амулетов пока нет</p></div>
+ </div>
+</section>
+<section class="hero-subscreen" id="skillsScreen" aria-label="Навыки героя">
+ <header class="subscreen-header"><button class="subscreen-back" data-close-subscreen type="button" aria-label="К герою">‹</button><h2 id="skillsHeaderName">Скиллы</h2><span aria-hidden="true"></span></header>
+ <div class="hero-subscreen-content"><div class="skill-list" id="skillList"></div></div>
 </section>
 <section id="inventoryScreen" aria-label="Инвентарь">
  <header class="inventory-header">
@@ -163,6 +229,11 @@ const n=document.getElementById('notice');
 const modal=document.getElementById('createModal');
 const heroesScreen=document.getElementById('heroesScreen');
 const heroesList=document.getElementById('heroesList');
+const heroDetailScreen=document.getElementById('heroDetailScreen');
+const equipmentScreen=document.getElementById('equipmentScreen');
+const amuletsScreen=document.getElementById('amuletsScreen');
+const skillsScreen=document.getElementById('skillsScreen');
+let activeHero=null;
 const inventoryScreen=document.getElementById('inventoryScreen');
 const inventoryItemsElement=document.getElementById('inventoryItems');
 const inventoryEmpty=document.getElementById('inventoryEmpty');
@@ -172,13 +243,32 @@ const mapStages=document.getElementById('mapStages');
 let selectedInventoryCategory='all';
 const inventoryItems=[];
 let selectedGender='Мужской';
-const STARTING_HEROES=[{id:'fighter',name:'Торен',role:'Боец',level:1},{id:'healer',name:'Лиора',role:'Маг-лекарь',level:1}];
-function loadSave(){let save;try{save=JSON.parse(localStorage.getItem('ashKingdomsSave')||'null')}catch{return null}if(!save||typeof save.nickname!=='string'||!save.nickname.trim())return null;if(!Array.isArray(save.heroes)||save.heroes.length===0){save.heroes=STARTING_HEROES.map(hero=>({...hero}));try{localStorage.setItem('ashKingdomsSave',JSON.stringify(save))}catch{}}return save}
+const STARTING_HEROES=[
+ {id:'fighter',name:'Торен',role:'Боец',level:1,description:'Стойкий боец, который держит переднюю линию и прикрывает союзников.',stats:{health:140,magicAttack:0,physicalAttack:20,magicDefense:9,physicalDefense:18},skills:[{id:'heavy-strike',type:'Активный',name:'Тяжёлый удар',icon:'⚔️',description:'Наносит мощный физический урон одному противнику.'},{id:'hardened-steel',type:'Пассивный',name:'Закалённая сталь',icon:'🛡️',description:'Увеличивает физическую защиту Торена.'}],equipment:{gloves:null,helmet:null,pants:null,body:null,boots:null,ring1:null,ring2:null,earring1:null,earring2:null,necklace:null},amulets:[null,null,null,null]},
+ {id:'healer',name:'Лиора',role:'Маг-лекарь',level:1,description:'Маг поддержки, исцеляющая союзников и помогающая им светлой магией.',stats:{health:105,magicAttack:20,physicalAttack:6,magicDefense:16,physicalDefense:9},skills:[{id:'healing-light',type:'Активный',name:'Целительный свет',icon:'✨',description:'Восстанавливает здоровье выбранному союзнику.'},{id:'light-aura',type:'Пассивный',name:'Светлая аура',icon:'💠',description:'Увеличивает магическую защиту Лиоры.'}],equipment:{gloves:null,helmet:null,pants:null,body:null,boots:null,ring1:null,ring2:null,earring1:null,earring2:null,necklace:null},amulets:[null,null,null,null]}
+];
+function cloneHero(hero){return {...hero,stats:{...hero.stats},skills:hero.skills.map(skill=>({...skill})),equipment:{...hero.equipment},amulets:[...hero.amulets]}}
+function mergeStartingHeroes(savedHeroes){const savedById=new Map(savedHeroes.filter(hero=>hero&&hero.id).map(hero=>[hero.id,hero]));const starters=STARTING_HEROES.map(template=>{const saved=savedById.get(template.id)||{};return {...cloneHero(template),...saved,stats:{...template.stats,...(saved.stats||{})},skills:template.skills.map(skill=>({...skill,...(Array.isArray(saved.skills)?saved.skills.find(savedSkill=>savedSkill.id===skill.id):{})})),equipment:{...template.equipment,...(saved.equipment||{})},amulets:Array.isArray(saved.amulets)?saved.amulets:[...template.amulets]}});return [...starters,...savedHeroes.filter(hero=>hero&&!STARTING_HEROES.some(template=>template.id===hero.id))]}
+function loadSave(){let save;try{save=JSON.parse(localStorage.getItem('ashKingdomsSave')||'null')}catch{return null}if(!save||typeof save.nickname!=='string'||!save.nickname.trim())return null;const oldHeroes=Array.isArray(save.heroes)?save.heroes:[];const heroes=mergeStartingHeroes(oldHeroes);const needsSave=JSON.stringify(oldHeroes)!==JSON.stringify(heroes);const needsEquipmentInventory=!Array.isArray(save.equipmentInventory);const needsAmuletInventory=!Array.isArray(save.amuletInventory);save.heroes=heroes;if(needsEquipmentInventory)save.equipmentInventory=[];if(needsAmuletInventory)save.amuletInventory=[];if(needsSave||needsEquipmentInventory||needsAmuletInventory){try{localStorage.setItem('ashKingdomsSave',JSON.stringify(save))}catch{}}return save}
 const fighterPortrait='<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M5 64c2-14 12-21 27-21s25 7 27 21" fill="#44474a" stroke="#b7a878" stroke-width="3"/><path d="M20 25c0-10 5-16 12-16s13 6 13 16v8c0 10-6 16-13 16s-12-6-12-16z" fill="#b9ab95"/><path d="M15 28 12 17 20 5l12 4 12-4 8 12-4 12-7-7-3-8-7 5-10-1z" fill="#333a3d" stroke="#c1a75f" stroke-width="2"/><path d="M20 27h7m8 0h7M27 35h8" stroke="#2b3030" stroke-width="3" stroke-linecap="round"/><path d="m15 63 7-14 10 6 10-6 7 14" fill="#39434a" stroke="#9f956e" stroke-width="2"/><path d="m32 9 1 18" stroke="#d0b36a" stroke-width="2"/></svg>';
 const healerPortrait='<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M5 64c3-14 12-21 27-21s24 7 27 21" fill="#3d5f65" stroke="#b7a878" stroke-width="3"/><path d="M20 24c0-10 5-15 12-15s13 5 13 15v9c0 10-6 16-13 16s-12-6-12-16z" fill="#c4b9a7"/><path d="M12 32 15 11 27 3l13 3 12 14-5 18-7-7-1-17-8-5-9 7-2 17z" fill="#32515b" stroke="#c1a75f" stroke-width="2"/><path d="M25 27h4m7 0h4m-11 9c2 2 6 2 8 0" fill="none" stroke="#484744" stroke-width="2" stroke-linecap="round"/><path d="M13 63 20 49l12 7 12-7 7 14" fill="#416970" stroke="#a8a179" stroke-width="2"/><path d="M51 14v31m-5-25h10" stroke="#d6bd75" stroke-width="3" stroke-linecap="round"/><path d="m51 8 2 4 4 2-4 2-2 4-2-4-4-2 4-2z" fill="#fff0a1"/></svg>';
-function renderHeroes(heroes){heroesList.replaceChildren();heroes.forEach(hero=>{const card=document.createElement('article');card.className='hero-card';const avatar=document.createElement('div');avatar.className='hero-avatar';avatar.setAttribute('aria-hidden','true');avatar.innerHTML=hero.id==='healer'?healerPortrait:fighterPortrait;const info=document.createElement('div');const name=document.createElement('div');name.className='hero-card-name';name.textContent=hero.name;const role=document.createElement('div');role.className='hero-card-role';role.textContent=hero.role;const levelLabel=document.createElement('div');levelLabel.className='hero-card-level';levelLabel.textContent=`Уровень ${hero.level||1}`;info.append(name,role,levelLabel);card.append(avatar,info);heroesList.append(card)})}
+function renderHeroes(heroes){heroesList.replaceChildren();heroes.forEach(hero=>{const card=document.createElement('article');card.className='hero-card';card.setAttribute('role','button');card.tabIndex=0;const avatar=document.createElement('div');avatar.className='hero-avatar';avatar.setAttribute('aria-hidden','true');avatar.innerHTML=hero.id==='healer'?healerPortrait:fighterPortrait;const info=document.createElement('div');const name=document.createElement('div');name.className='hero-card-name';name.textContent=hero.name;const role=document.createElement('div');role.className='hero-card-role';role.textContent=hero.role;const levelLabel=document.createElement('div');levelLabel.className='hero-card-level';levelLabel.textContent=`Уровень ${hero.level||1}`;info.append(name,role,levelLabel);card.append(avatar,info);card.onclick=()=>openHeroDetails(hero.id);card.onkeydown=event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openHeroDetails(hero.id)}};heroesList.append(card)})}
+const heroStatDefinitions=[['health','Здоровье'],['magicAttack','Магическая атака'],['physicalAttack','Физическая атака'],['magicDefense','Магическая защита'],['physicalDefense','Физическая защита']];
+const equipmentDefinitions=[{key:'gloves',label:'Перчатки',icon:'🧤'},{key:'helmet',label:'Шлем',icon:'🪖'},{key:'pants',label:'Штаны',icon:'👖'},{key:'body',label:'Тело',icon:'🥋'},{key:'boots',label:'Ботинки',icon:'🥾'}];
+const jewelryDefinitions=[{key:'ring1',label:'Кольцо 1',icon:'💍'},{key:'ring2',label:'Кольцо 2',icon:'💍'},{key:'earring1',label:'Серьга 1',icon:'📿'},{key:'earring2',label:'Серьга 2',icon:'📿'},{key:'necklace',label:'Ожерелье',icon:'📿'}];
+function openHeroDetails(heroId){const save=loadSave();activeHero=save?.heroes.find(hero=>hero.id===heroId);if(!activeHero)return;document.getElementById('detailHeaderName').textContent=activeHero.name;document.getElementById('detailName').textContent=activeHero.name;document.getElementById('detailRole').textContent=activeHero.role;document.getElementById('detailDescription').textContent=activeHero.description;const portrait=document.getElementById('detailAvatar');portrait.innerHTML=activeHero.id==='healer'?healerPortrait:fighterPortrait;const stats=document.getElementById('detailStats');stats.replaceChildren();heroStatDefinitions.forEach(([key,label])=>{const row=document.createElement('li');const statName=document.createElement('span');statName.textContent=label;const value=document.createElement('strong');value.textContent=activeHero.stats?.[key]??0;row.append(statName,value);stats.append(row)});heroDetailScreen.classList.add('active')}
+function populateSlots(container,definitions,equipment){container.replaceChildren();definitions.forEach(slot=>{const cell=document.createElement('div');cell.className='gear-slot';const item=equipment?.[slot.key];const icon=document.createElement('span');icon.className='gear-slot-icon';icon.textContent=item?.icon||slot.icon;const label=document.createElement('span');label.className='gear-slot-label';label.textContent=item?.name||slot.label;cell.append(icon,label);container.append(cell)})}
+function renderItemInventory(container,items,emptyText){container.replaceChildren();if(!items.length){const empty=document.createElement('p');empty.className='empty-inventory';empty.textContent=emptyText;container.append(empty);return}items.forEach(item=>{const tile=document.createElement('div');tile.className='inventory-item';tile.setAttribute('aria-label',item.name||'Предмет');const icon=document.createElement('span');icon.className='inventory-item-icon';icon.textContent=item.icon||'📦';const count=document.createElement('span');count.className='inventory-item-count';count.textContent=item.count??1;tile.append(icon,count);container.append(tile)})}
+function renderEquipment(){if(!activeHero)return;document.getElementById('equipmentHeaderName').textContent='Снаряжение';populateSlots(document.getElementById('equipmentSlots'),equipmentDefinitions,activeHero.equipment);populateSlots(document.getElementById('jewelrySlots'),jewelryDefinitions,activeHero.equipment);const save=loadSave();renderItemInventory(document.getElementById('equipmentInventory'),save?.equipmentInventory||[],'Предметов снаряжения пока нет')}
+function renderAmulets(){if(!activeHero)return;document.getElementById('amuletsHeaderName').textContent='Амулеты';const slots=document.getElementById('amuletSlots');slots.replaceChildren();for(let index=0;index<4;index++){const item=activeHero.amulets?.[index];const cell=document.createElement('div');cell.className='amulet-slot';const icon=document.createElement('span');icon.className='gear-slot-icon';icon.textContent=item?.icon||'🔮';const label=document.createElement('span');label.className='gear-slot-label';label.textContent=item?.name||`Ячейка ${index+1}`;cell.append(icon,label);slots.append(cell)}const save=loadSave();renderItemInventory(document.getElementById('amuletInventory'),save?.amuletInventory||[],'Амулетов пока нет')}
+function renderSkills(){if(!activeHero)return;document.getElementById('skillsHeaderName').textContent='Скиллы';const list=document.getElementById('skillList');list.replaceChildren();(activeHero.skills||[]).slice(0,2).forEach(skill=>{const card=document.createElement('article');card.className='skill-card';const icon=document.createElement('div');icon.className='skill-icon';icon.setAttribute('aria-hidden','true');icon.textContent=skill.icon||'✦';const info=document.createElement('div');const type=document.createElement('div');type.className='skill-type';type.textContent=skill.type;const name=document.createElement('h3');name.className='skill-name';name.textContent=skill.name;const description=document.createElement('p');description.className='skill-description';description.textContent=skill.description;info.append(type,name,description);card.append(icon,info);list.append(card)})}
 document.getElementById('openHeroes').onclick=()=>{const save=loadSave();renderHeroes(save?.heroes||[]);heroesScreen.classList.add('active')};
 document.getElementById('closeHeroes').onclick=()=>heroesScreen.classList.remove('active');
+document.getElementById('backToHeroes').onclick=()=>heroDetailScreen.classList.remove('active');
+document.getElementById('openEquipment').onclick=()=>{renderEquipment();equipmentScreen.classList.add('active')};
+document.getElementById('openAmulets').onclick=()=>{renderAmulets();amuletsScreen.classList.add('active')};
+document.getElementById('openSkills').onclick=()=>{renderSkills();skillsScreen.classList.add('active')};
+document.querySelectorAll('[data-close-subscreen]').forEach(button=>button.onclick=()=>button.closest('.hero-subscreen').classList.remove('active'));
 function renderInventory(){inventoryItemsElement.querySelectorAll('.inventory-item').forEach(item=>item.remove());const visibleItems=inventoryItems.filter(item=>selectedInventoryCategory==='all'||item.category===selectedInventoryCategory);inventoryEmpty.hidden=visibleItems.length>0;visibleItems.forEach(item=>{const tile=document.createElement('div');tile.className='inventory-item';tile.setAttribute('aria-label',`${item.name}, количество ${item.count}`);const icon=document.createElement('span');icon.className='inventory-item-icon';icon.setAttribute('aria-hidden','true');icon.textContent=item.icon;const count=document.createElement('span');count.className='inventory-item-count';count.textContent=item.count;tile.append(icon,count);inventoryItemsElement.append(tile)})}
 document.getElementById('openInventory').onclick=()=>{selectedInventoryCategory='all';document.querySelectorAll('.inventory-category').forEach(button=>{button.classList.remove('active');button.setAttribute('aria-pressed','false')});renderInventory();inventoryScreen.classList.add('active')};
 document.getElementById('closeInventory').onclick=()=>inventoryScreen.classList.remove('active');
@@ -190,7 +280,7 @@ document.getElementById('new').onclick=()=>{modal.classList.add('open');document
 document.getElementById('cancelCreate').onclick=()=>{modal.classList.remove('open')};
 document.querySelectorAll('[data-gender]').forEach(b=>b.onclick=()=>{selectedGender=b.dataset.gender;document.querySelectorAll('[data-gender]').forEach(x=>x.classList.toggle('selected',x===b))});
 function showGame(save){document.getElementById('heroName').textContent=save.nickname;document.getElementById('heroLevel').textContent=`Уровень ${save.level||1}`;document.getElementById('coinCount').textContent=save.coins||0;document.querySelector('main').style.display='none';document.getElementById('gameScreen').classList.add('active')}
-document.getElementById('confirmCreate').onclick=()=>{const nickname=document.getElementById('nickname').value.trim();if(!nickname){document.getElementById('formError').textContent='Введите ник.';return}const save={nickname,gender:selectedGender,createdAt:Date.now(),chapter:1,level:1,coins:0,heroes:STARTING_HEROES.map(hero=>({...hero}))};localStorage.setItem('ashKingdomsSave',JSON.stringify(save));modal.classList.remove('open');showGame(save)};
+document.getElementById('confirmCreate').onclick=()=>{const nickname=document.getElementById('nickname').value.trim();if(!nickname){document.getElementById('formError').textContent='Введите ник.';return}const save={nickname,gender:selectedGender,createdAt:Date.now(),chapter:1,level:1,coins:0,heroes:STARTING_HEROES.map(cloneHero),equipmentInventory:[],amuletInventory:[]};localStorage.setItem('ashKingdomsSave',JSON.stringify(save));modal.classList.remove('open');showGame(save)};
 document.getElementById('continue').onclick=()=>{const save=loadSave();if(save)showGame(save);else n.textContent='Сохранений пока нет. Начните новое приключение.'};
 document.getElementById('settings').onclick=()=>{n.textContent='Настройки появятся в следующем обновлении.'};
 const savedGame=loadSave();if(savedGame)showGame(savedGame);
