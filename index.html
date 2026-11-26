@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#11100f">
+<title>Королевства Пепла</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:24px;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 40%,#53351e 0%,transparent 48%),linear-gradient(145deg,#191612,#080b10);color:#f2e6d0;font-family:Georgia,serif}
+main{position:relative;overflow:hidden;width:min(900px,100%);min-height:580px;padding:48px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:1px solid #a17b4855;background:linear-gradient(180deg,#080a0f44,#08090cf2),radial-gradient(ellipse at 50% 80%,#49301d,#17191c 65%);box-shadow:0 25px 90px #000a}
+.kicker{font:12px Arial,sans-serif;letter-spacing:.35em;text-transform:uppercase;color:#c6a36b;margin-bottom:20px}.sigil{font-size:42px;color:#c49a58;text-shadow:0 0 25px #c18a3c66}h1{font-size:clamp(40px,8vw,76px);line-height:.98;letter-spacing:.04em;text-transform:uppercase;margin:12px 0;text-shadow:0 4px 25px #000}.sub{font:13px Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#c8b99f;margin:14px 0 38px}
+nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18px;border:1px solid #a17b48;background:linear-gradient(#4b3825,#241c15);color:#f5e7cc;font:bold 13px Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}button:hover{border-color:#e0b873;background:linear-gradient(#71502e,#382719)}button.alt{background:#111318dd;border-color:#6b604f;color:#cfc3ad}.notice{min-height:20px;margin-top:18px;color:#d5b77e;font:12px Arial,sans-serif}.foot{position:absolute;bottom:18px;color:#8e877c;font:10px Arial,sans-serif;letter-spacing:.12em}
+@media(max-width:520px){main{min-height:calc(100vh - 48px)}.sub{font-size:11px;line-height:1.6}}
+</style>
+</head>
+<body>
+<main>
+<div class="kicker">Летопись павших королевств</div><div class="sigil">✦</div>
+<h1>Королевства<br>Пепла</h1>
+<p class="sub">Мир ждёт тех, кто осмелится войти</p>
+<nav><button id="new">Начать приключение</button><button class="alt" id="continue">Продолжить</button><button class="alt" id="settings">Настройки</button></nav>
+<div class="notice" id="notice" aria-live="polite"></div>
+<div class="foot">ОДИНОЧНОЕ ПРИКЛЮЧЕНИЕ · ПЕРВАЯ ВЕРСИЯ</div>
+</main>
+<script>
+const n=document.getElementById('notice');
+document.getElementById('new').onclick=()=>{localStorage.setItem('ashKingdomsSave',JSON.stringify({createdAt:Date.now(),chapter:1}));n.textContent='Путешествие начинается… Скоро здесь появится создание отряда.'};
+document.getElementById('continue').onclick=()=>{n.textContent=localStorage.getItem('ashKingdomsSave')?'Сохранение найдено. Продолжение скоро станет доступно.':'Сохранений пока нет. Начните новое приключение.'};
+document.getElementById('settings').onclick=()=>{n.textContent='Настройки появятся в следующем обновлении.'};
+</script>
+</body>
+</html>
