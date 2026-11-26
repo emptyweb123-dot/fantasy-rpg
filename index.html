@@ -29,6 +29,20 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 .game-bottom .map-button .nav-icon{font-size:36px}
 .nav-icon{font-size:27px;line-height:1.1;filter:drop-shadow(0 2px 2px #000)}
 @media(max-width:520px){.game-top{padding:11px 12px}.hero-badge{width:46px;height:46px}.hero-name{font-size:15px}.coin-count{font-size:16px;padding:8px 10px}.game-bottom{gap:5px;padding-left:4px;padding-right:4px}.game-bottom button{font-size:clamp(8px,2.1vw,10px);height:66px}.game-bottom .map-button{height:80px;transform:translateY(-12px)}.game-bottom .map-button .nav-icon{font-size:34px}.nav-icon{font-size:24px}}
+#heroesScreen{display:none;position:fixed;inset:0;z-index:4;flex-direction:column;background:radial-gradient(ellipse at 50% 20%,#38291d,#141313 58%,#090a0c);color:#f2e6d0;font-family:Georgia,serif}
+#heroesScreen.active{display:flex}
+.heroes-header{flex:none;display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 14px 12px;background:#0c0d0fee;border-bottom:1px solid #9b784a88;box-shadow:0 6px 20px #0008}
+.heroes-back{width:44px;height:44px;padding:0;border:1px solid #74552f;border-radius:7px;background:#20180f;color:#f4e4c7;font:32px/1 Arial,sans-serif;letter-spacing:0}
+.heroes-header h2{margin:0;text-align:center;color:#e5c58e;font:bold 19px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.heroes-list{width:min(600px,100%);flex:1;overflow-y:auto;overscroll-behavior:contain;margin:0 auto;padding:14px 12px calc(20px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px}
+.hero-card{min-height:102px;display:grid;grid-template-columns:78px minmax(0,1fr);align-items:center;gap:14px;padding:10px;border:2px solid #77532f;border-radius:10px;background:linear-gradient(115deg,#63402c,#33241b 72%,#241a14);box-shadow:inset 0 1px #ffffff16,0 4px 12px #0008}
+.hero-avatar{width:76px;height:76px;display:grid;place-items:center;overflow:hidden;border:4px solid #40c6a0;border-radius:5px;background:radial-gradient(circle at 50% 30%,#777,#292929 74%);box-shadow:0 0 0 2px #161616,0 2px 7px #0009}
+.hero-avatar svg{width:100%;height:100%;display:block}
+.hero-card:nth-child(2n) .hero-avatar{border-color:#b64cdf;background:radial-gradient(circle at 50% 30%,#777,#24242a 74%)}
+.hero-card:nth-child(3n) .hero-avatar{border-color:#36b6e8;background:radial-gradient(circle at 50% 30%,#777,#25282c 74%)}
+.hero-card-name{color:#f1d3a0;font:bold 18px Georgia,serif;text-shadow:0 2px 3px #000}
+.hero-card-level{margin-top:7px;color:#e6c78f;font:bold 14px Arial,sans-serif}
+@media(max-width:520px){.heroes-header{grid-template-columns:42px 1fr 42px;padding-left:10px;padding-right:10px}.heroes-back{width:40px;height:40px}.heroes-list{padding:12px 9px calc(18px + env(safe-area-inset-bottom));gap:8px}.hero-card{min-height:94px;grid-template-columns:70px minmax(0,1fr);gap:12px;padding:8px}.hero-avatar{width:68px;height:68px}.hero-card-name{font-size:16px}}
 </style>
 </head>
 <body>
@@ -46,12 +60,20 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
   <div class="coin-count" aria-label="Монеты"><span class="coin-icon" aria-hidden="true">🪙</span><span id="coinCount">0</span></div>
  </header>
  <nav class="game-bottom" aria-label="Игровое меню">
-  <button type="button"><span class="nav-icon" aria-hidden="true">🛡️</span>Герои</button>
+  <button id="openHeroes" type="button"><span class="nav-icon" aria-hidden="true">🛡️</span>Герои</button>
   <button type="button"><span class="nav-icon" aria-hidden="true">🎒</span>Инвентарь</button>
   <button class="map-button" type="button" aria-label="Карта"><span class="nav-icon" aria-hidden="true">🗺️</span></button>
   <button type="button"><span class="nav-icon" aria-hidden="true">⚔️</span>Кампания</button>
   <button type="button"><span class="nav-icon" aria-hidden="true">📜</span>Приключения</button>
  </nav>
+</section>
+<section id="heroesScreen" aria-label="Герои">
+ <header class="heroes-header">
+  <button class="heroes-back" id="closeHeroes" type="button" aria-label="Назад">‹</button>
+  <h2>Герои</h2>
+  <span aria-hidden="true"></span>
+ </header>
+ <div class="heroes-list" id="heroesList" aria-label="Список героев"></div>
 </section>\n<div class="modal" id="createModal" role="dialog" aria-modal="true" aria-labelledby="createTitle">
  <section class="dialog">
   <h2 id="createTitle">Создание персонажа</h2>
@@ -66,8 +88,13 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 <script>
 const n=document.getElementById('notice');
 const modal=document.getElementById('createModal');
+const heroesScreen=document.getElementById('heroesScreen');
+const heroesList=document.getElementById('heroesList');
 let selectedGender='Мужской';
 function loadSave(){try{const save=JSON.parse(localStorage.getItem('ashKingdomsSave')||'null');return save&&typeof save.nickname==='string'&&save.nickname.trim()?save:null}catch{return null}}
+function renderHeroes(level){heroesList.replaceChildren();for(let i=0;i<6;i++){const card=document.createElement('article');card.className='hero-card';const avatar=document.createElement('div');avatar.className='hero-avatar';avatar.setAttribute('aria-hidden','true');avatar.innerHTML='<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M5 64c2-14 12-21 27-21s25 7 27 21" fill="#44474a" stroke="#a5a19a" stroke-width="3"/><path d="M20 26c0-11 5-17 13-17s13 6 13 17v8c0 9-6 16-13 16s-13-7-13-16z" fill="#b9b4aa"/><path d="M18 27c0-15 5-22 15-22 9 0 15 7 15 22l-5-5-4-8-7 5-8-2z" fill="#383a3c"/><path d="M25 30h4m7 0h4m-11 9c2 2 6 2 8 0" fill="none" stroke="#4b4a47" stroke-width="2" stroke-linecap="round"/><path d="M14 63l6-13 12 7 12-7 6 13" fill="#272b30" stroke="#92908a" stroke-width="2"/></svg>';const info=document.createElement('div');const name=document.createElement('div');name.className='hero-card-name';name.textContent='Герой';const levelLabel=document.createElement('div');levelLabel.className='hero-card-level';levelLabel.textContent=`Уровень ${level}`;info.append(name,levelLabel);card.append(avatar,info);heroesList.append(card)}}
+document.getElementById('openHeroes').onclick=()=>{const save=loadSave();renderHeroes(save?.level||1);heroesScreen.classList.add('active')};
+document.getElementById('closeHeroes').onclick=()=>heroesScreen.classList.remove('active');
 document.getElementById('new').onclick=()=>{modal.classList.add('open');document.getElementById('nickname').focus()};
 document.getElementById('cancelCreate').onclick=()=>{modal.classList.remove('open')};
 document.querySelectorAll('[data-gender]').forEach(b=>b.onclick=()=>{selectedGender=b.dataset.gender;document.querySelectorAll('[data-gender]').forEach(x=>x.classList.toggle('selected',x===b))});
