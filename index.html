@@ -22,11 +22,13 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 .coin-count{display:flex;align-items:center;gap:9px;padding:9px 14px;border:1px solid #987344;border-radius:8px;background:linear-gradient(90deg,#20180f,#111);font:bold 18px Arial,sans-serif;box-shadow:inset 0 1px #ffffff18}
 .coin-icon{font-size:23px;line-height:1}
 .game-button{display:none}
-.game-bottom{position:fixed;left:0;right:0;bottom:0;width:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:9px 8px calc(9px + env(safe-area-inset-bottom));background:linear-gradient(180deg,#251a10,#100d0a);border-top:2px solid #9b7040;box-shadow:0 -8px 24px #0009}
-.game-bottom button{min-width:0;min-height:72px;padding:5px 2px;background:transparent;border:0;border-radius:6px;color:#f4e4c7;font:bold 11px Arial,sans-serif;letter-spacing:0;text-transform:none;text-shadow:0 2px 4px #000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
-.game-bottom button:hover{background:#ffffff12;border:0}
+.game-bottom{position:fixed;left:0;right:0;bottom:0;width:auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:end;gap:6px;padding:9px 8px calc(9px + env(safe-area-inset-bottom));background:linear-gradient(180deg,#251a10,#100d0a);border-top:2px solid #9b7040;box-shadow:0 -8px 24px #0009}
+.game-bottom button{min-width:0;height:70px;padding:5px 2px;background:linear-gradient(180deg,#332619,#1b140e);border:1px solid #74552f;border-radius:7px;color:#f4e4c7;font:bold 10px Arial,sans-serif;letter-spacing:0;text-transform:none;text-shadow:0 2px 4px #000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;box-shadow:inset 0 1px #ffffff14,0 2px 5px #0008}
+.game-bottom button:hover{background:linear-gradient(180deg,#45331f,#261b10);border-color:#b18b50}
+.game-bottom .map-button{height:84px;transform:translateY(-14px);border-color:#c19a5b;background:linear-gradient(180deg,#68482a,#302014);box-shadow:inset 0 1px #ffffff24,0 4px 10px #000a}
+.game-bottom .map-button .nav-icon{font-size:36px}
 .nav-icon{font-size:27px;line-height:1.1;filter:drop-shadow(0 2px 2px #000)}
-@media(max-width:520px){.game-top{padding:11px 12px}.hero-badge{width:46px;height:46px}.hero-name{font-size:15px}.coin-count{font-size:16px;padding:8px 10px}.game-bottom{gap:0;padding-left:4px;padding-right:4px}.game-bottom button{font-size:10px;min-height:66px}.nav-icon{font-size:24px}}
+@media(max-width:520px){.game-top{padding:11px 12px}.hero-badge{width:46px;height:46px}.hero-name{font-size:15px}.coin-count{font-size:16px;padding:8px 10px}.game-bottom{gap:5px;padding-left:4px;padding-right:4px}.game-bottom button{font-size:clamp(8px,2.1vw,10px);height:66px}.game-bottom .map-button{height:80px;transform:translateY(-12px)}.game-bottom .map-button .nav-icon{font-size:34px}.nav-icon{font-size:24px}}
 </style>
 </head>
 <body>
@@ -44,9 +46,9 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
   <div class="coin-count" aria-label="Монеты"><span class="coin-icon" aria-hidden="true">🪙</span><span id="coinCount">0</span></div>
  </header>
  <nav class="game-bottom" aria-label="Игровое меню">
-  <button type="button"><span class="nav-icon" aria-hidden="true">🗺️</span>Карта</button>
   <button type="button"><span class="nav-icon" aria-hidden="true">🛡️</span>Герои</button>
   <button type="button"><span class="nav-icon" aria-hidden="true">🎒</span>Инвентарь</button>
+  <button class="map-button" type="button" aria-label="Карта"><span class="nav-icon" aria-hidden="true">🗺️</span></button>
   <button type="button"><span class="nav-icon" aria-hidden="true">⚔️</span>Кампания</button>
   <button type="button"><span class="nav-icon" aria-hidden="true">📜</span>Приключения</button>
  </nav>
