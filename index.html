@@ -77,13 +77,15 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 const n=document.getElementById('notice');
 const modal=document.getElementById('createModal');
 let selectedGender='Мужской';
+function loadSave(){try{const save=JSON.parse(localStorage.getItem('ashKingdomsSave')||'null');return save&&typeof save.nickname==='string'&&save.nickname.trim()?save:null}catch{return null}}
 document.getElementById('new').onclick=()=>{modal.classList.add('open');document.getElementById('nickname').focus()};
 document.getElementById('cancelCreate').onclick=()=>{modal.classList.remove('open')};
 document.querySelectorAll('[data-gender]').forEach(b=>b.onclick=()=>{selectedGender=b.dataset.gender;document.querySelectorAll('[data-gender]').forEach(x=>x.classList.toggle('selected',x===b))});
 function showGame(save){document.getElementById('heroName').textContent=save.nickname;document.getElementById('heroLevel').textContent=`Уровень ${save.level||1}`;document.getElementById('coinCount').textContent=save.coins||0;document.querySelector('main').style.display='none';document.getElementById('gameScreen').classList.add('active')}
 document.getElementById('confirmCreate').onclick=()=>{const nickname=document.getElementById('nickname').value.trim();if(!nickname){document.getElementById('formError').textContent='Введите ник.';return}const save={nickname,gender:selectedGender,createdAt:Date.now(),chapter:1,level:1,coins:0};localStorage.setItem('ashKingdomsSave',JSON.stringify(save));modal.classList.remove('open');showGame(save)};
-document.getElementById('continue').onclick=()=>{n.textContent=localStorage.getItem('ashKingdomsSave')?'Сохранение найдено. Продолжение скоро станет доступно.':'Сохранений пока нет. Начните новое приключение.'};
+document.getElementById('continue').onclick=()=>{const save=loadSave();if(save)showGame(save);else n.textContent='Сохранений пока нет. Начните новое приключение.'};
 document.getElementById('settings').onclick=()=>{n.textContent='Настройки появятся в следующем обновлении.'};
+const savedGame=loadSave();if(savedGame)showGame(savedGame);
 </script>
 </body>
 </html>
