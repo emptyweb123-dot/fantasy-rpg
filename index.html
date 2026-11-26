@@ -11,7 +11,7 @@ main{position:relative;overflow:hidden;width:min(900px,100%);min-height:580px;pa
 .kicker{font:12px Arial,sans-serif;letter-spacing:.35em;text-transform:uppercase;color:#c6a36b;margin-bottom:20px}.sigil{font-size:42px;color:#c49a58;text-shadow:0 0 25px #c18a3c66}h1{font-size:clamp(40px,8vw,76px);line-height:.98;letter-spacing:.04em;text-transform:uppercase;margin:12px 0;text-shadow:0 4px 25px #000}.sub{font:13px Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#c8b99f;margin:14px 0 38px}
 nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18px;border:1px solid #a17b48;background:linear-gradient(#4b3825,#241c15);color:#f5e7cc;font:bold 13px Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}button:hover{border-color:#e0b873;background:linear-gradient(#71502e,#382719)}button.alt{background:#111318dd;border-color:#6b604f;color:#cfc3ad}.notice{min-height:20px;margin-top:18px;color:#d5b77e;font:12px Arial,sans-serif}.foot{position:absolute;bottom:18px;color:#8e877c;font:10px Arial,sans-serif;letter-spacing:.12em}
 @media(max-width:520px){main{min-height:calc(100vh - 48px)}.sub{font-size:11px;line-height:1.6}}
-</style>
+.modal{position:fixed;inset:0;z-index:5;display:none;place-items:center;padding:20px;background:#050609dd}.modal.open{display:grid}.dialog{width:min(420px,100%);padding:28px;border:1px solid #a17b48;background:linear-gradient(145deg,#252019,#101216);box-shadow:0 20px 70px #000c;text-align:left}.dialog h2{margin:0 0 22px;text-align:center;color:#e5c58e;font-size:25px}.dialog label{display:block;margin:16px 0 8px;color:#c8b99f;font:12px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}.dialog input{width:100%;padding:13px;background:#0d0f12;border:1px solid #6b604f;color:#f5e7cc;font-size:16px}.genders{display:flex;gap:10px}.genders button{flex:1}.genders button.selected{border-color:#e0b873;background:#71502e}.dialog .actions{display:flex;gap:10px;margin-top:24px}.dialog .actions button{flex:1}.error{min-height:18px;color:#e5a18d;font:12px Arial,sans-serif;margin-top:8px}</style>
 </head>
 <body>
 <main>
@@ -22,9 +22,25 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 <div class="notice" id="notice" aria-live="polite"></div>
 <div class="foot">ОДИНОЧНОЕ ПРИКЛЮЧЕНИЕ · ПЕРВАЯ ВЕРСИЯ</div>
 </main>
+<div class="modal" id="createModal" role="dialog" aria-modal="true" aria-labelledby="createTitle">
+ <section class="dialog">
+  <h2 id="createTitle">Создание персонажа</h2>
+  <label for="nickname">Ваш ник</label>
+  <input id="nickname" type="text" maxlength="20" placeholder="Введите ник" autocomplete="nickname">
+  <label>Пол</label>
+  <div class="genders"><button type="button" class="alt selected" data-gender="Мужской">Мужской</button><button type="button" class="alt" data-gender="Женский">Женский</button></div>
+  <div class="error" id="formError" aria-live="polite"></div>
+  <div class="actions"><button type="button" class="alt" id="cancelCreate">Назад</button><button type="button" id="confirmCreate">Далее</button></div>
+ </section>
+</div>
 <script>
 const n=document.getElementById('notice');
-document.getElementById('new').onclick=()=>{localStorage.setItem('ashKingdomsSave',JSON.stringify({createdAt:Date.now(),chapter:1}));n.textContent='Путешествие начинается… Скоро здесь появится создание отряда.'};
+const modal=document.getElementById('createModal');
+let selectedGender='Мужской';
+document.getElementById('new').onclick=()=>{modal.classList.add('open');document.getElementById('nickname').focus()};
+document.getElementById('cancelCreate').onclick=()=>{modal.classList.remove('open')};
+document.querySelectorAll('[data-gender]').forEach(b=>b.onclick=()=>{selectedGender=b.dataset.gender;document.querySelectorAll('[data-gender]').forEach(x=>x.classList.toggle('selected',x===b))});
+document.getElementById('confirmCreate').onclick=()=>{const nickname=document.getElementById('nickname').value.trim();if(!nickname){document.getElementById('formError').textContent='Введите ник.';return}localStorage.setItem('ashKingdomsSave',JSON.stringify({nickname,gender:selectedGender,createdAt:Date.now(),chapter:1}));modal.classList.remove('open');n.textContent='Персонаж создан: '+nickname+' · '+selectedGender};
 document.getElementById('continue').onclick=()=>{n.textContent=localStorage.getItem('ashKingdomsSave')?'Сохранение найдено. Продолжение скоро станет доступно.':'Сохранений пока нет. Начните новое приключение.'};
 document.getElementById('settings').onclick=()=>{n.textContent='Настройки появятся в следующем обновлении.'};
 </script>
