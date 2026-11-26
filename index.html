@@ -218,6 +218,37 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 .gear-slot.filled{cursor:pointer;color:inherit;text-align:center;font:inherit;letter-spacing:0;text-transform:none}.gear-slot.filled:hover{border-color:#e3c16f}
 .gear-slot.locked{cursor:default}
 @media(max-width:520px){.inventory-header{grid-template-columns:42px 1fr 42px;padding-left:10px;padding-right:10px}.inventory-back{width:40px;height:40px}.inventory-categories{gap:4px;padding:10px 6px}.inventory-category{height:44px;font-size:21px}.inventory-items{gap:5px;padding:10px 6px calc(16px + env(safe-area-inset-bottom))}.inventory-item-count{font-size:11px}}
+#campaignScreen{display:none;position:fixed;inset:0;z-index:4;flex-direction:column;background:radial-gradient(ellipse at 50% 8%,#244769,#10243a 48%,#0c1723);color:#f2e6d0;font-family:Georgia,serif}
+#campaignScreen.active{display:flex}
+.campaign-header{background:#10243af2;border-bottom-color:#4d82ae}
+.campaign-header h2{color:#f2d293}
+.campaign-content{width:min(620px,100%);flex:1;overflow-y:auto;overscroll-behavior:contain;margin:0 auto;padding:16px 12px calc(20px + env(safe-area-inset-bottom))}
+.campaign-location{text-align:center;padding:10px 12px 14px;text-shadow:0 2px 4px #0009}
+.campaign-level-label{color:#d6c18e;font:bold 12px Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+.campaign-stage-title{margin:5px 0 0;color:#fff0c7;font:bold 25px Arial,sans-serif;text-transform:uppercase}
+.campaign-panel{margin-top:12px;padding:12px;border:2px solid #b78754;border-radius:9px;background:linear-gradient(145deg,#7a5030,#51321f 55%,#35251d);box-shadow:inset 0 1px #ffe0a044,0 5px 14px #0008}
+.campaign-panel-title{margin:0 0 10px;text-align:center;color:#ffdfa3;font:bold 14px Arial,sans-serif;letter-spacing:.05em;text-transform:uppercase;text-shadow:0 2px 3px #0009}
+.campaign-enemies{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.campaign-enemy{min-height:104px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:8px 4px;border:2px solid #a94f50;border-radius:7px;background:linear-gradient(145deg,#29323a,#151d25);box-shadow:inset 0 1px #fff2,0 3px 7px #0008;text-align:center}
+.campaign-enemy:nth-child(2){border-color:#9e6cbd}.campaign-enemy:nth-child(3){border-color:#d1b85f}
+.campaign-enemy-icon{font-size:37px;line-height:1.1;filter:drop-shadow(0 2px 3px #000)}
+.campaign-enemy-name{color:#f1d5a3;font:bold 11px Arial,sans-serif;line-height:1.2}
+.campaign-enemy-level{color:#c8d5da;font:10px Arial,sans-serif}
+.campaign-loot{margin-top:12px;padding:11px;border:1px solid #a37a4f;border-radius:7px;background:linear-gradient(145deg,#57371f,#392519);text-align:center}
+.campaign-loot-heading{margin:0 0 8px;color:#f0cc92;font:bold 13px Arial,sans-serif}
+.campaign-loot-items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.campaign-loot-item{padding:7px 3px;color:#f4dfbd;font:11px Arial,sans-serif}
+.campaign-loot-icon{display:block;margin-bottom:3px;font-size:27px}
+.campaign-loot-note{margin:8px 0 0;color:#ceb99b;font:10px/1.4 Arial,sans-serif}
+.campaign-party{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.campaign-hero{min-width:0;display:grid;grid-template-columns:58px minmax(0,1fr) 26px;align-items:center;gap:8px;padding:8px;border:2px solid #627788;border-radius:8px;background:linear-gradient(120deg,#203141,#131c26);color:inherit;text-align:left;text-transform:none;letter-spacing:0;box-shadow:inset 0 1px #fff2}
+.campaign-hero.selected{border-color:#e0bd69;background:linear-gradient(120deg,#57411e,#252019);box-shadow:inset 0 1px #fff3,0 0 10px #e0bd6944}
+.campaign-hero .hero-avatar{width:56px;height:56px;border-width:3px}
+.campaign-hero-info{min-width:0}.campaign-hero-name{overflow:hidden;color:#f0d19a;font:bold 14px Georgia,serif;text-overflow:ellipsis;white-space:nowrap}.campaign-hero-meta{margin-top:4px;color:#c9d4d8;font:10px Arial,sans-serif}
+.campaign-hero-check{width:22px;height:22px;display:grid;place-items:center;border:1px solid #72848a;border-radius:5px;color:transparent;font:bold 15px Arial,sans-serif}
+.campaign-hero.selected .campaign-hero-check{border-color:#ecd17d;background:#b1863f;color:#fff3c2}
+.campaign-party-count{margin:8px 0 0;color:#e5c88e;font:bold 11px Arial,sans-serif;text-align:center}
+@media(max-width:520px){.campaign-content{padding:12px 9px calc(16px + env(safe-area-inset-bottom))}.campaign-stage-title{font-size:22px}.campaign-panel{padding:10px}.campaign-enemy{min-height:94px}.campaign-enemy-icon{font-size:32px}.campaign-party{grid-template-columns:1fr}.campaign-hero .hero-avatar{width:52px;height:52px}}
 #mapScreen{display:none;position:fixed;inset:0;z-index:4;flex-direction:column;background:#15202a;color:#f2e6d0;font-family:Georgia,serif}
 #mapScreen.active{display:flex}
 .map-header{flex:none;display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 14px 12px;background:#0c1118f2;border-bottom:1px solid #54768b;box-shadow:0 6px 20px #0008;z-index:2}
@@ -251,9 +282,19 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
   <button id="openHeroes" type="button"><span class="nav-icon" aria-hidden="true">🛡️</span>Герои</button>
   <button id="openInventory" type="button"><span class="nav-icon" aria-hidden="true">🎒</span>Инвентарь</button>
   <button class="map-button" id="openMap" type="button" aria-label="Карта"><span class="nav-icon" aria-hidden="true">🗺️</span></button>
-  <button type="button"><span class="nav-icon" aria-hidden="true">⚔️</span>Кампания</button>
+  <button id="openCampaign" type="button"><span class="nav-icon" aria-hidden="true">⚔️</span>Кампания</button>
   <button type="button"><span class="nav-icon" aria-hidden="true">📜</span>Приключения</button>
  </nav>
+</section>
+<section id="campaignScreen" aria-label="Кампания">
+ <header class="subscreen-header campaign-header"><button class="subscreen-back" id="closeCampaign" type="button" aria-label="Назад">‹</button><h2>Кампания</h2><span aria-hidden="true"></span></header>
+ <div class="campaign-content">
+  <div class="campaign-location"><div class="campaign-level-label">Уровень кампании <span id="campaignLevel">1</span></div><h3 class="campaign-stage-title" id="campaignStageTitle">Этап 1</h3></div>
+  <section class="campaign-panel" aria-labelledby="campaignEnemiesTitle"><h3 class="campaign-panel-title" id="campaignEnemiesTitle">Монстры · уровень <span id="campaignMonsterLevel">1</span></h3><div class="campaign-enemies" id="campaignEnemies"></div>
+   <div class="campaign-loot"><h4 class="campaign-loot-heading">Возможная добыча</h4><div class="campaign-loot-items"><div class="campaign-loot-item"><span class="campaign-loot-icon" aria-hidden="true">🪙</span>Золото</div><div class="campaign-loot-item"><span class="campaign-loot-icon" aria-hidden="true">🛡️</span>Экипировка</div><div class="campaign-loot-item"><span class="campaign-loot-icon" aria-hidden="true">📦</span>Предметы</div></div><p class="campaign-loot-note">Предварительный список наград. Выпадение добычи пока не подключено.</p></div>
+  </section>
+  <section class="campaign-panel" aria-labelledby="campaignPartyTitle"><h3 class="campaign-panel-title" id="campaignPartyTitle">Выбор героев для атаки</h3><div class="campaign-party" id="campaignParty"></div><p class="campaign-party-count" id="campaignPartyCount" aria-live="polite"></p></section>
+ </div>
 </section>
 <section id="heroesScreen" aria-label="Герои">
  <header class="heroes-header">
@@ -395,6 +436,7 @@ const inventoryEmpty=document.getElementById('inventoryEmpty');
 const mapScreen=document.getElementById('mapScreen');
 const mapScroll=document.getElementById('mapScroll');
 const mapStages=document.getElementById('mapStages');
+const campaignScreen=document.getElementById('campaignScreen');
 let selectedInventoryCategory='all';
 const inventoryItems=[];
 let selectedGender='Мужской';
@@ -600,6 +642,9 @@ document.getElementById('closeInventory').onclick=()=>inventoryScreen.classList.
 document.querySelectorAll('.inventory-category').forEach(button=>button.onclick=()=>{selectedInventoryCategory=button.dataset.category;document.querySelectorAll('.inventory-category').forEach(categoryButton=>{const active=categoryButton===button;categoryButton.classList.toggle('active',active);categoryButton.setAttribute('aria-pressed',String(active))});renderInventory()});
 document.getElementById('openMap').onclick=()=>{const save=loadSave();renderMap(save?.chapter||1);mapScreen.classList.add('active')};
 document.getElementById('closeMap').onclick=()=>mapScreen.classList.remove('active');
+document.getElementById('openCampaign').onclick=()=>{renderCampaign();campaignScreen.classList.add('active')};
+document.getElementById('closeCampaign').onclick=()=>campaignScreen.classList.remove('active');
+function renderCampaign(){const save=loadSave();const heroes=save?.heroes||[];const campaignLevel=Math.max(1,Math.floor(Number(save?.chapter)||1));document.getElementById('campaignLevel').textContent=campaignLevel;document.getElementById('campaignMonsterLevel').textContent=campaignLevel;document.getElementById('campaignStageTitle').textContent=`Этап ${campaignLevel}`;const enemies=document.getElementById('campaignEnemies');enemies.replaceChildren();['Монстр 1','Монстр 2','Монстр 3'].forEach((name,index)=>{const card=document.createElement('article');card.className='campaign-enemy';const icon=document.createElement('span');icon.className='campaign-enemy-icon';icon.setAttribute('aria-hidden','true');icon.textContent=['👹','👾','💀'][index];const label=document.createElement('strong');label.className='campaign-enemy-name';label.textContent=name;const level=document.createElement('span');level.className='campaign-enemy-level';level.textContent=`Уровень ${campaignLevel}`;card.append(icon,label,level);enemies.append(card)});const party=document.getElementById('campaignParty');party.replaceChildren();const selected=new Set(Array.isArray(save?.campaignParty)?save.campaignParty.filter(id=>heroes.some(hero=>hero.id===id)):heroes.map(hero=>hero.id));heroes.forEach(hero=>{const button=document.createElement('button');button.type='button';button.className=`campaign-hero${selected.has(hero.id)?' selected':''}`;button.setAttribute('aria-pressed',String(selected.has(hero.id)));const avatar=document.createElement('div');avatar.className='hero-avatar';const progression=heroProgression(hero);avatar.dataset.rank=progression.rebirths;avatar.style.setProperty('--hero-frame-color',progression.stage.color);avatar.innerHTML=hero.id==='healer'?healerPortrait:fighterPortrait;const info=document.createElement('div');info.className='campaign-hero-info';const name=document.createElement('div');name.className='campaign-hero-name';name.textContent=hero.name;const meta=document.createElement('div');meta.className='campaign-hero-meta';meta.textContent=`${hero.role} · ур. ${progression.level}`;info.append(name,meta);const check=document.createElement('span');check.className='campaign-hero-check';check.setAttribute('aria-hidden','true');check.textContent='✓';button.append(avatar,info,check);button.onclick=()=>{const next=new Set(selected);if(next.has(hero.id))next.delete(hero.id);else next.add(hero.id);const latest=loadSave();if(!latest)return;latest.campaignParty=heroes.filter(entry=>next.has(entry.id)).map(entry=>entry.id);localStorage.setItem('ashKingdomsSave',JSON.stringify(latest));renderCampaign()};party.append(button)});document.getElementById('campaignPartyCount').textContent=`Выбрано героев: ${selected.size}`}
 function renderMap(currentLevel){mapStages.replaceChildren();const columns=[20,70,36,78,22,63,35,78,25,61];const yStart=105;const yStep=145;const activeLevel=Math.min(10,Math.max(1,Number(currentLevel)||1));for(let level=1;level<=10;level++){const node=document.createElement('div');node.className=`map-stage${level===activeLevel?' current':''}`;node.textContent=level;node.setAttribute('role','img');node.setAttribute('aria-label',`Уровень ${level}${level===activeLevel?', текущий':''}`);node.style.left=`${columns[level-1]}%`;node.style.top=`${yStart+(level-1)*yStep}px`;mapStages.append(node)}mapScroll.scrollTop=0;requestAnimationFrame(()=>{if(activeLevel>1){const currentNode=mapStages.querySelector('.map-stage.current');mapScroll.scrollTop=Math.max(0,currentNode.offsetTop-mapScroll.clientHeight*.42)}})}
 document.getElementById('new').onclick=()=>{modal.classList.add('open');document.getElementById('nickname').focus()};
 document.getElementById('cancelCreate').onclick=()=>{modal.classList.remove('open')};
