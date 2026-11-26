@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 30471)
-Total output lines: 689
-
 <!doctype html>
 <html lang="ru">
 <head>
@@ -442,7 +439,31 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 const n=document.getElementById('notice');
 const modal=document.getElementById('createModal');
 const heroesScreen=document.getElementById('heroesScreen');
-const heroesList=document.getEl…471 tokens truncated…ts:null,body:null,boots:null,ring1:null,ring2:null,earring1:null,earring2:null,necklace:null},amulets:[null,null,null,null]},
+const heroesList=document.getElementById('heroesList');
+const heroDetailScreen=document.getElementById('heroDetailScreen');
+const equipmentScreen=document.getElementById('equipmentScreen');
+const amuletsScreen=document.getElementById('amuletsScreen');
+const skillsScreen=document.getElementById('skillsScreen');
+let activeHero=null;
+let selectedUpgradeStep=1;
+const chestModal=document.getElementById('chestModal');
+const starterChestModal=document.getElementById('starterChestModal');
+let selectedChestType=null;
+const inventoryScreen=document.getElementById('inventoryScreen');
+const inventoryItemsElement=document.getElementById('inventoryItems');
+const inventoryEmpty=document.getElementById('inventoryEmpty');
+const mapScreen=document.getElementById('mapScreen');
+const mapScroll=document.getElementById('mapScroll');
+const mapStages=document.getElementById('mapStages');
+const mapChapters=document.getElementById('mapChapters');
+const campaignScreen=document.getElementById('campaignScreen');
+let selectedMapChapter=1;
+let campaignReturnToMap=false;
+let selectedInventoryCategory='all';
+const inventoryItems=[];
+let selectedGender='Мужской';
+const STARTING_HEROES=[
+ {id:'fighter',name:'Торен',role:'Боец',race:'Человек',level:1,description:'Стойкий боец, который держит переднюю линию и прикрывает союзников.',stats:{health:140,magicAttack:0,physicalAttack:20,magicDefense:9,physicalDefense:18},skills:[{id:'heavy-strike',type:'Активный',name:'Тяжёлый удар',icon:'⚔️',description:'Наносит мощный физический урон одному противнику.'},{id:'hardened-steel',type:'Пассивный',name:'Закалённая сталь',icon:'🛡️',description:'Увеличивает физическую защиту Торена.'}],equipment:{gloves:null,helmet:null,pants:null,body:null,boots:null,ring1:null,ring2:null,earring1:null,earring2:null,necklace:null},amulets:[null,null,null,null]},
  {id:'healer',name:'Лиора',role:'Лекарь',race:'Человек',level:1,description:'Лекарь поддержки, исцеляющая союзников и помогающая им светлой магией.',stats:{health:105,magicAttack:20,physicalAttack:6,magicDefense:16,physicalDefense:9},skills:[{id:'healing-light',type:'Активный',name:'Целительный свет',icon:'✨',description:'Восстанавливает здоровье выбранному союзнику.'},{id:'light-aura',type:'Пассивный',name:'Светлая аура',icon:'💠',description:'Увеличивает магическую защиту Лиоры.'}],equipment:{gloves:null,helmet:null,pants:null,body:null,boots:null,ring1:null,ring2:null,earring1:null,earring2:null,necklace:null},amulets:[null,null,null,null]}
 ];
 function cloneHero(hero){const stats={...hero.stats};return {...hero,stats,baseStats:{...(hero.baseStats||stats)},skills:hero.skills.map(skill=>({...skill})),specialSkills:(hero.specialSkills||[{id:'gold-mountain',name:'Гора монет',icon:'🪙',goldBonus:2}]).map(skill=>({...skill})),level:Math.max(1,Number(hero.level)||1),rebirths:Math.max(0,Number(hero.rebirths)||0),equipment:{weapon:null,offhand:null,...hero.equipment},amulets:[...hero.amulets]}}
