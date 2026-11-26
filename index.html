@@ -260,8 +260,9 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 .campaign-deck-head h3{margin:0;color:#f1d49b;font:bold 16px Arial,sans-serif}
 .campaign-deck-body{overflow:auto;padding:10px}
 .campaign-deck-slots{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;margin-bottom:10px}
-.campaign-deck-slot{aspect-ratio:1;display:grid;place-items:center;border:2px dashed #74848b;border-radius:7px;background:#18232a;color:#829197;font-size:21px}
+.campaign-deck-slot{min-width:0;width:100%;aspect-ratio:1;display:grid;place-items:center;overflow:hidden;padding:3px;border:2px dashed #74848b;border-radius:7px;background:#18232a;color:#829197;font-size:21px}
 .campaign-deck-slot.filled{border-style:solid;border-color:#c8a55e;color:#f0d19a}
+.campaign-deck-slot .hero-avatar{width:min(100%,54px);height:auto;min-width:0;aspect-ratio:1;flex:none}
 .campaign-hero-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px}
 .campaign-roster-hero{min-width:0;display:grid;place-items:center;padding:4px 2px;border:1px solid #596c7a;border-radius:7px;background:#1b2830;color:inherit}
 .campaign-roster-hero.selected{border:2px solid #e0bd69;background:#57411e}
@@ -284,7 +285,7 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 .campaign-hero-check{width:22px;height:22px;display:grid;place-items:center;border:1px solid #72848a;border-radius:5px;color:transparent;font:bold 15px Arial,sans-serif}
 .campaign-hero.selected .campaign-hero-check{border-color:#ecd17d;background:#b1863f;color:#fff3c2}
 .campaign-party-count{margin:8px 0 0;color:#e5c88e;font:bold 11px Arial,sans-serif;text-align:center}
-@media(max-width:520px){.campaign-content{padding:12px 9px calc(16px + env(safe-area-inset-bottom))}.campaign-stage-title{font-size:22px}.campaign-panel{padding:10px}.campaign-enemies{grid-template-columns:repeat(8,minmax(0,1fr));gap:4px}.campaign-enemy-icon{width:clamp(28px,10vw,42px);height:clamp(28px,10vw,42px);font-size:clamp(18px,6vw,26px)}.campaign-enemy.primary .campaign-enemy-icon{width:clamp(38px,13vw,54px);height:clamp(38px,13vw,54px);font-size:clamp(24px,8vw,34px)}.campaign-deck-slots,.campaign-hero-grid{gap:4px}.campaign-roster-hero{padding:3px 1px}.campaign-roster-hero .hero-avatar{width:100%;max-width:48px}.campaign-hero-info-traits{font-size:11px}.campaign-party{grid-template-columns:1fr}.campaign-hero .hero-avatar{width:52px;height:52px}}
+@media(max-width:520px){.campaign-content{padding:12px 9px calc(16px + env(safe-area-inset-bottom))}.campaign-stage-title{font-size:22px}.campaign-panel{padding:10px}.campaign-enemies{grid-template-columns:repeat(8,minmax(0,1fr));gap:4px}.campaign-enemy-icon{width:clamp(28px,10vw,42px);height:clamp(28px,10vw,42px);font-size:clamp(18px,6vw,26px)}.campaign-enemy.primary .campaign-enemy-icon{width:clamp(38px,13vw,54px);height:clamp(38px,13vw,54px);font-size:clamp(24px,8vw,34px)}.campaign-deck-slots,.campaign-hero-grid{gap:4px}.campaign-deck-slot{padding:2px}.campaign-deck-slot .hero-avatar{width:100%;max-width:48px}.campaign-roster-hero{padding:3px 1px}.campaign-roster-hero .hero-avatar{width:100%;max-width:48px}.campaign-hero-info-traits{font-size:11px}.campaign-party{grid-template-columns:1fr}.campaign-hero .hero-avatar{width:52px;height:52px}}
 #mapScreen{display:none;position:fixed;inset:0;z-index:4;flex-direction:column;background:#15202a;color:#f2e6d0;font-family:Georgia,serif}
 #mapScreen.active{display:flex}
 .map-header{flex:none;display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 14px 12px;background:#0c1118f2;border-bottom:1px solid #54768b;box-shadow:0 6px 20px #0008;z-index:2}
