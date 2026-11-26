@@ -87,6 +87,11 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 .hero-progression button{padding:12px 6px;border-radius:7px;font-size:clamp(10px,3vw,13px);letter-spacing:.02em}
 .hero-progression{grid-template-columns:1fr}
 .hero-progression-status{min-height:17px;margin:6px 0 0;color:#d5b77e;font:11px Arial,sans-serif;text-align:center}
+.hero-meta-table{display:grid;gap:0;margin-top:12px;border:1px solid #514436;border-radius:8px;background:#17191bdc;overflow:hidden}
+.hero-meta-row{display:flex;justify-content:space-between;gap:12px;padding:10px 13px;border-bottom:1px solid #ffffff18;font:13px Arial,sans-serif}
+.hero-meta-row:last-child{border-bottom:0}
+.hero-meta-row span{color:#d8c7aa}
+.hero-meta-row strong{color:#f4dda8;text-align:right}
 .hero-stats-legend{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:8px;padding:7px 12px 2px;color:#a99d89;font:9px Arial,sans-serif}
 .hero-stats-legend span:nth-child(2){color:#e6c78f}.hero-stats-legend span:nth-child(3){color:#65baff}.hero-stats-legend span:nth-child(4){color:#ff6969}
 .hero-stat-values{display:flex;align-items:center;justify-content:flex-end;gap:6px;font: bold 12px Arial,sans-serif;white-space:nowrap}
@@ -242,6 +247,12 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
  <header class="subscreen-header"><button class="subscreen-back" id="backToHeroes" type="button" aria-label="К списку героев">‹</button><h2 id="detailHeaderName">Герой</h2><span aria-hidden="true"></span></header>
  <div class="hero-detail-content">
   <div class="hero-profile"><div class="hero-avatar" id="detailAvatar" aria-hidden="true"></div><div><h3 class="hero-profile-name" id="detailName">Герой</h3><div class="hero-profile-role" id="detailRole"></div><p class="hero-description" id="detailDescription"></p></div></div>
+  <div class="hero-meta-table" aria-label="Параметры персонажа">
+   <div class="hero-meta-row"><span>Ранг персонажа</span><strong id="detailRank"></strong></div>
+   <div class="hero-meta-row"><span>Раса</span><strong id="detailRace"></strong></div>
+   <div class="hero-meta-row"><span>Класс</span><strong id="detailClass"></strong></div>
+   <div class="hero-meta-row"><span>БМ персонажа</span><strong id="detailPower"></strong></div>
+  </div>
   <div class="hero-progression"><button id="openHeroUpgrade" type="button">Улучшить персонажа</button></div>
   <ul class="hero-stats" id="detailStats" aria-label="Характеристики героя"></ul>
   <div class="hero-detail-actions"><button id="openEquipment" type="button">Снаряжение</button><button id="openAmulets" type="button">Амулеты</button><button id="openSkills" type="button">Скиллы</button></div>
@@ -366,8 +377,8 @@ let selectedInventoryCategory='all';
 const inventoryItems=[];
 let selectedGender='Мужской';
 const STARTING_HEROES=[
- {id:'fighter',name:'Торен',role:'Боец',level:1,description:'Стойкий боец, который держит переднюю линию и прикрывает союзников.',stats:{health:140,magicAttack:0,physicalAttack:20,magicDefense:9,physicalDefense:18},skills:[{id:'heavy-strike',type:'Активный',name:'Тяжёлый удар',icon:'⚔️',description:'Наносит мощный физический урон одному противнику.'},{id:'hardened-steel',type:'Пассивный',name:'Закалённая сталь',icon:'🛡️',description:'Увеличивает физическую защиту Торена.'}],equipment:{gloves:null,helmet:null,pants:null,body:null,boots:null,ring1:null,ring2:null,earring1:null,earring2:null,necklace:null},amulets:[null,null,null,null]},
- {id:'healer',name:'Лиора',role:'Маг-лекарь',level:1,description:'Маг поддержки, исцеляющая союзников и помогающая им светлой магией.',stats:{health:105,magicAttack:20,physicalAttack:6,magicDefense:16,physicalDefense:9},skills:[{id:'healing-light',type:'Активный',name:'Целительный свет',icon:'✨',description:'Восстанавливает здоровье выбранному союзнику.'},{id:'light-aura',type:'Пассивный',name:'Светлая аура',icon:'💠',description:'Увеличивает магическую защиту Лиоры.'}],equipment:{gloves:null,helmet:null,pants:null,body:null,boots:null,ring1:null,ring2:null,earring1:null,earring2:null,necklace:null},amulets:[null,null,null,null]}
+ {id:'fighter',name:'Торен',role:'Боец',race:'Человек',level:1,description:'Стойкий боец, который держит переднюю линию и прикрывает союзников.',stats:{health:140,magicAttack:0,physicalAttack:20,magicDefense:9,physicalDefense:18},skills:[{id:'heavy-strike',type:'Активный',name:'Тяжёлый удар',icon:'⚔️',description:'Наносит мощный физический урон одному противнику.'},{id:'hardened-steel',type:'Пассивный',name:'Закалённая сталь',icon:'🛡️',description:'Увеличивает физическую защиту Торена.'}],equipment:{gloves:null,helmet:null,pants:null,body:null,boots:null,ring1:null,ring2:null,earring1:null,earring2:null,necklace:null},amulets:[null,null,null,null]},
+ {id:'healer',name:'Лиора',role:'Маг-лекарь',race:'Человек',level:1,description:'Маг поддержки, исцеляющая союзников и помогающая им светлой магией.',stats:{health:105,magicAttack:20,physicalAttack:6,magicDefense:16,physicalDefense:9},skills:[{id:'healing-light',type:'Активный',name:'Целительный свет',icon:'✨',description:'Восстанавливает здоровье выбранному союзнику.'},{id:'light-aura',type:'Пассивный',name:'Светлая аура',icon:'💠',description:'Увеличивает магическую защиту Лиоры.'}],equipment:{gloves:null,helmet:null,pants:null,body:null,boots:null,ring1:null,ring2:null,earring1:null,earring2:null,necklace:null},amulets:[null,null,null,null]}
 ];
 function cloneHero(hero){const stats={...hero.stats};return {...hero,stats,baseStats:{...(hero.baseStats||stats)},skills:hero.skills.map(skill=>({...skill})),specialSkills:(hero.specialSkills||[{id:'gold-mountain',name:'Гора монет',icon:'🪙',goldBonus:2}]).map(skill=>({...skill})),level:Math.max(1,Number(hero.level)||1),rebirths:Math.max(0,Number(hero.rebirths)||0),equipment:{weapon:null,offhand:null,...hero.equipment},amulets:[...hero.amulets]}}
 function mergeStartingHeroes(savedHeroes){const savedById=new Map(savedHeroes.filter(hero=>hero&&hero.id).map(hero=>[hero.id,hero]));const starters=STARTING_HEROES.map(template=>{const saved=savedById.get(template.id)||{};const stats={...template.stats,...(saved.stats||{})};return {...cloneHero(template),...saved,stats,baseStats:{...template.stats,...(saved.baseStats||saved.stats||{})},skills:template.skills.map(skill=>({...skill,...(Array.isArray(saved.skills)?saved.skills.find(savedSkill=>savedSkill.id===skill.id):{})})),specialSkills:Array.isArray(saved.specialSkills)?saved.specialSkills:[{id:'gold-mountain',name:'Гора монет',icon:'🪙',goldBonus:2}],rebirths:Math.min(5,Math.max(0,Number(saved.rebirths)||0)),level:Math.max(1,Number(saved.level)||1),equipment:{weapon:null,offhand:null,...template.equipment,...(saved.equipment||{})},amulets:Array.isArray(saved.amulets)?Array.from({length:4},(_,index)=>saved.amulets[index]||null):[...template.amulets]}});return [...starters,...savedHeroes.filter(hero=>hero&&!STARTING_HEROES.some(template=>template.id===hero.id))]}
@@ -396,7 +407,51 @@ function heroEquipmentBonuses(hero){const totals={percent:Object.fromEntries(her
 function formatStatValue(value){return new Intl.NumberFormat('ru-RU',{maximumFractionDigits:2}).format(Number(value)||0)}
 const equipmentDefinitions=[{key:'weapon',label:'Оружие',icon:'⚔️'},{key:'offhand',label:'Щит / колчан',icon:'🛡️'},{key:'gloves',label:'Перчатки',icon:'🧤'},{key:'helmet',label:'Шлем',icon:'🪖'},{key:'pants',label:'Штаны',icon:'👖'},{key:'body',label:'Тело',icon:'🥋'},{key:'boots',label:'Ботинки',icon:'🥾'}];
 const jewelryDefinitions=[{key:'ring1',label:'Кольцо 1',icon:'💍'},{key:'ring2',label:'Кольцо 2',icon:'💍'},{key:'earring1',label:'Серьга 1',icon:'📿'},{key:'earring2',label:'Серьга 2',icon:'📿'},{key:'necklace',label:'Ожерелье',icon:'📿'}];
-function refreshHeroDetail(){if(!activeHero)return;document.getElementById('detailHeaderName').textContent=activeHero.name;document.getElementById('detailName').textContent=activeHero.name;document.getElementById('detailRole').textContent=activeHero.role;document.getElementById('detailDescription').textContent=activeHero.description;const progression=heroProgression(activeHero);const frameColor=progression.stage.color;document.getElementById('detailAvatar').dataset.rank=progression.rebirths;document.getElementById('detailAvatar').style.setProperty('--hero-frame-color',frameColor);document.getElementById('detailAvatar').innerHTML=activeHero.id==='healer'?healerPortrait:fighterPortrait;const bonuses=heroEquipmentBonuses(activeHero);const baseStats=activeHero.baseStats||activeHero.stats||{};const stats=document.getElementById('detailStats');stats.replaceChildren();heroStatDefinitions.forEach(([key,label])=>{const row=document.createElement('li');const statName=document.createElement('span');statName.textContent=label;const values=document.createElement('div');values.className='hero-stat-values';const baseValue=Number(baseStats[key])||0;const gearValue=baseValue*(1+(bonuses.percent[key]||0)/100)+(bonuses.flat[key]||0);const totalValue=gearValue*(1+progression.totalLevelBonus/100);const base=document.createElement('strong');base.className='base-stat';base.textContent=formatStatValue(baseValue);const withGear=document.createElement('strong');withGear.className='gear-stat';withGear.textContent=`(${formatStatValue(gearValue)})`;const total=document.createElement('strong');total.className='total-stat';total.textContent=`[${formatStatValue(totalValue)}]`;values.append(total);row.append(statName,values);stats.append(row)})}
+function refreshHeroDetail(){
+ if(!activeHero)return;
+ document.getElementById('detailHeaderName').textContent=activeHero.name;
+ document.getElementById('detailName').textContent=activeHero.name;
+ document.getElementById('detailRole').textContent=activeHero.role;
+ document.getElementById('detailDescription').textContent=activeHero.description;
+ const progression=heroProgression(activeHero);
+ const frameColor=progression.stage.color;
+ document.getElementById('detailAvatar').dataset.rank=progression.rebirths;
+ document.getElementById('detailAvatar').style.setProperty('--hero-frame-color',frameColor);
+ document.getElementById('detailAvatar').innerHTML=activeHero.id==='healer'?healerPortrait:fighterPortrait;
+ document.getElementById('detailRank').textContent=progression.stage.name;
+ document.getElementById('detailRace').textContent=activeHero.race||'Не указана';
+ document.getElementById('detailClass').textContent=activeHero.heroClass||activeHero.class||activeHero.role||'Не указан';
+ const bonuses=heroEquipmentBonuses(activeHero);
+ const baseStats=activeHero.baseStats||activeHero.stats||{};
+ const stats=document.getElementById('detailStats');
+ stats.replaceChildren();
+ let battlePower=0;
+ heroStatDefinitions.forEach(([key,label])=>{
+  const row=document.createElement('li');
+  const statName=document.createElement('span');
+  statName.textContent=label;
+  const values=document.createElement('div');
+  values.className='hero-stat-values';
+  const baseValue=Number(baseStats[key])||0;
+  const gearValue=baseValue*(1+(bonuses.percent[key]||0)/100)+(bonuses.flat[key]||0);
+  const totalValue=gearValue*(1+progression.totalLevelBonus/100);
+  const base=document.createElement('strong');
+  base.className='base-stat';
+  base.textContent=formatStatValue(baseValue);
+  const withGear=document.createElement('strong');
+  withGear.className='gear-stat';
+  withGear.textContent='('+formatStatValue(gearValue)+')';
+  const total=document.createElement('strong');
+  total.className='total-stat';
+  total.textContent='['+formatStatValue(totalValue)+']';
+  const displayedValue=Number(formatStatValue(totalValue).replace(/[\s\u00a0\u202f]/g,'').replace(',','.'))||0;
+  battlePower+=displayedValue;
+  values.append(total);
+  row.append(statName,values);
+  stats.append(row);
+ });
+ document.getElementById('detailPower').textContent=formatStatValue(battlePower);
+}
 function openHeroDetails(heroId){const save=loadSave();activeHero=save?.heroes.find(hero=>hero.id===heroId);if(!activeHero)return;refreshHeroDetail();heroDetailScreen.classList.add('active')}
 function updateActiveHero(update){if(!activeHero)return;const save=loadSave();if(!save)return;const index=save.heroes.findIndex(hero=>hero.id===activeHero.id);if(index<0)return;save.heroes[index]=update(save.heroes[index]);localStorage.setItem('ashKingdomsSave',JSON.stringify(save));activeHero=save.heroes[index];refreshHeroDetail();if(document.getElementById('heroUpgradeModal').classList.contains('open'))refreshHeroUpgradeModal()}
 function formatUpgradeGold(amount){if(!Number.isFinite(amount))return 'Недоступно';if(amount>=1e15)return amount.toExponential(2).replace('.',',');return new Intl.NumberFormat('ru-RU',{maximumFractionDigits:0}).format(amount)}
