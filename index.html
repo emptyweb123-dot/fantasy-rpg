@@ -11,7 +11,15 @@ main{position:relative;overflow:hidden;width:min(900px,100%);min-height:580px;pa
 .kicker{font:12px Arial,sans-serif;letter-spacing:.35em;text-transform:uppercase;color:#c6a36b;margin-bottom:20px}.sigil{font-size:42px;color:#c49a58;text-shadow:0 0 25px #c18a3c66}h1{font-size:clamp(40px,8vw,76px);line-height:.98;letter-spacing:.04em;text-transform:uppercase;margin:12px 0;text-shadow:0 4px 25px #000}.sub{font:13px Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#c8b99f;margin:14px 0 38px}
 nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18px;border:1px solid #a17b48;background:linear-gradient(#4b3825,#241c15);color:#f5e7cc;font:bold 13px Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}button:hover{border-color:#e0b873;background:linear-gradient(#71502e,#382719)}button.alt{background:#111318dd;border-color:#6b604f;color:#cfc3ad}.notice{min-height:20px;margin-top:18px;color:#d5b77e;font:12px Arial,sans-serif}.foot{position:absolute;bottom:18px;color:#8e877c;font:10px Arial,sans-serif;letter-spacing:.12em}
 @media(max-width:520px){main{min-height:calc(100vh - 48px)}.sub{font-size:11px;line-height:1.6}}
-.modal{position:fixed;inset:0;z-index:5;display:none;place-items:center;padding:20px;background:#050609dd}.modal.open{display:grid}.dialog{width:min(420px,100%);padding:28px;border:1px solid #a17b48;background:linear-gradient(145deg,#252019,#101216);box-shadow:0 20px 70px #000c;text-align:left}.dialog h2{margin:0 0 22px;text-align:center;color:#e5c58e;font-size:25px}.dialog label{display:block;margin:16px 0 8px;color:#c8b99f;font:12px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}.dialog input{width:100%;padding:13px;background:#0d0f12;border:1px solid #6b604f;color:#f5e7cc;font-size:16px}.genders{display:flex;gap:10px}.genders button{flex:1}.genders button.selected{border-color:#e0b873;background:#71502e}.dialog .actions{display:flex;gap:10px;margin-top:24px}.dialog .actions button{flex:1}.error{min-height:18px;color:#e5a18d;font:12px Arial,sans-serif;margin-top:8px}</style>
+.modal{position:fixed;inset:0;z-index:5;display:none;place-items:center;padding:20px;background:#050609dd}.modal.open{display:grid}.dialog{width:min(420px,100%);padding:28px;border:1px solid #a17b48;background:linear-gradient(145deg,#252019,#101216);box-shadow:0 20px 70px #000c;text-align:left}.dialog h2{margin:0 0 22px;text-align:center;color:#e5c58e;font-size:25px}.dialog label{display:block;margin:16px 0 8px;color:#c8b99f;font:12px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}.dialog input{width:100%;padding:13px;background:#0d0f12;border:1px solid #6b604f;color:#f5e7cc;font-size:16px}.genders{display:flex;gap:10px}.genders button{flex:1}.genders button.selected{border-color:#e0b873;background:#71502e}.dialog .actions{display:flex;gap:10px;margin-top:24px}.dialog .actions button{flex:1}.error{min-height:18px;color:#e5a18d;font:12px Arial,sans-serif;margin-top:8px}
+#gameScreen{display:none;position:fixed;inset:0;z-index:3;background:#050505;color:#eee5d2;padding:22px 18px 90px;overflow:auto;font-family:Georgia,serif}
+#gameScreen.active{display:flex;flex-direction:column;align-items:center}
+.game-center{width:min(520px,100%);display:flex;flex-direction:column;align-items:center;gap:14px;margin:auto 0}
+.map-picture{width:min(340px,85vw);height:190px;border:1px solid #69583b;background:#111;display:block}
+.game-button{width:min(300px,90%);padding:14px 16px}
+.game-bottom{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:12px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:#101010;border-top:1px solid #333}
+.game-bottom button{width:min(180px,42vw);background:#191919;border-color:#5c503d}
+</style>
 </head>
 <body>
 <main>
@@ -22,7 +30,22 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 <div class="notice" id="notice" aria-live="polite"></div>
 <div class="foot">ОДИНОЧНОЕ ПРИКЛЮЧЕНИЕ · ПЕРВАЯ ВЕРСИЯ</div>
 </main>
-<div class="modal" id="createModal" role="dialog" aria-modal="true" aria-labelledby="createTitle">
+<section id="gameScreen" aria-label="Игровой экран">
+ <div class="game-center">
+  <svg class="map-picture" viewBox="0 0 340 190" role="img" aria-label="Стилизованная карта фэнтезийного мира">
+   <defs><linearGradient id="parchment" x2="1" y2="1"><stop stop-color="#8b744d"/><stop offset="1" stop-color="#3c3325"/></linearGradient></defs>
+   <rect width="340" height="190" fill="#111"/><path d="M22 22 Q62 8 100 27 T180 25 T260 28 L316 18 L306 160 Q260 174 220 157 T140 165 T25 155Z" fill="url(#parchment)" stroke="#b69a66" stroke-width="2"/>
+   <path d="M50 58 Q80 40 110 65 T170 55 T230 68 T285 48 M55 125 Q90 105 125 125 T190 112 T270 130" fill="none" stroke="#d0b987" stroke-width="2" opacity=".55"/>
+   <path d="M80 45 l12 -13 10 13 -10 18z M230 96 l12 -13 10 13 -10 18z M155 135 l12 -13 10 13 -10 18z" fill="#30291f" stroke="#c3a36b"/>
+   <path d="M38 90 Q92 80 130 92 T220 88 T295 95" fill="none" stroke="#5c4931" stroke-width="3" stroke-dasharray="5 5"/>
+   <circle cx="170" cy="85" r="5" fill="#d9bd7e"/><text x="170" y="17" fill="#d8c18e" font-size="10" text-anchor="middle" letter-spacing="2">КАРТА МИРА</text>
+  </svg>
+  <button class="game-button" type="button">Карта</button>
+  <button class="game-button" type="button">Кампания</button>
+  <button class="game-button" type="button">Приключения</button>
+ </div>
+ <div class="game-bottom"><button type="button">Герои</button><button type="button">Инвентарь</button></div>
+</section>\n<div class="modal" id="createModal" role="dialog" aria-modal="true" aria-labelledby="createTitle">
  <section class="dialog">
   <h2 id="createTitle">Создание персонажа</h2>
   <label for="nickname">Ваш ник</label>
@@ -40,7 +63,7 @@ let selectedGender='Мужской';
 document.getElementById('new').onclick=()=>{modal.classList.add('open');document.getElementById('nickname').focus()};
 document.getElementById('cancelCreate').onclick=()=>{modal.classList.remove('open')};
 document.querySelectorAll('[data-gender]').forEach(b=>b.onclick=()=>{selectedGender=b.dataset.gender;document.querySelectorAll('[data-gender]').forEach(x=>x.classList.toggle('selected',x===b))});
-document.getElementById('confirmCreate').onclick=()=>{const nickname=document.getElementById('nickname').value.trim();if(!nickname){document.getElementById('formError').textContent='Введите ник.';return}localStorage.setItem('ashKingdomsSave',JSON.stringify({nickname,gender:selectedGender,createdAt:Date.now(),chapter:1}));modal.classList.remove('open');n.textContent='Персонаж создан: '+nickname+' · '+selectedGender};
+document.getElementById('confirmCreate').onclick=()=>{const nickname=document.getElementById('nickname').value.trim();if(!nickname){document.getElementById('formError').textContent='Введите ник.';return}localStorage.setItem('ashKingdomsSave',JSON.stringify({nickname,gender:selectedGender,createdAt:Date.now(),chapter:1}));modal.classList.remove('open');document.querySelector('main').style.display='none';document.getElementById('gameScreen').classList.add('active')};
 document.getElementById('continue').onclick=()=>{n.textContent=localStorage.getItem('ashKingdomsSave')?'Сохранение найдено. Продолжение скоро станет доступно.':'Сохранений пока нет. Начните новое приключение.'};
 document.getElementById('settings').onclick=()=>{n.textContent='Настройки появятся в следующем обновлении.'};
 </script>
