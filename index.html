@@ -506,6 +506,30 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 .amulet-slots .agathion-slot.filled .gear-slot-icon{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:hidden;border-radius:inherit;font-size:0}
 .amulet-slots .agathion-slot.filled .gear-slot-icon .agathion-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;border-radius:0}
 .amulet-slots .agathion-slot.filled .gear-slot-label{display:none}
+
+/* Rank 0: forged common iron portrait frame */
+.hero-avatar[data-rank="0"],.hero-profile .hero-avatar[data-rank="0"]{
+ position:relative;
+ border:5px solid transparent!important;
+ border-radius:9px!important;
+ background:linear-gradient(#1c2327,#141a1e) padding-box,linear-gradient(140deg,#f0f2f0 0%,#b8c0c0 11%,#6b7478 25%,#d9dedb 42%,#626b70 57%,#a8b0b1 76%,#e6e9e6 100%) border-box!important;
+ box-shadow:0 0 0 1px #0b0e10,0 0 0 2px #747d80,0 3px 8px #000d,inset 0 1px #ffffff8a!important
+}
+.hero-avatar[data-rank="0"]::after,.hero-profile .hero-avatar[data-rank="0"]::after{
+ content:"";position:absolute;inset:0;z-index:2;border-radius:inherit;pointer-events:none;
+ box-shadow:inset 0 0 0 1px #f4f6f2a6,inset 0 0 0 3px #3d464a8a;
+ background:
+  radial-gradient(circle,#f1f3f1 0 1px,#626a6e 1.4px 2.5px,transparent 2.9px) 1px 1px/8px 8px no-repeat,
+  radial-gradient(circle,#f1f3f1 0 1px,#626a6e 1.4px 2.5px,transparent 2.9px) calc(100% - 9px) 1px/8px 8px no-repeat,
+  radial-gradient(circle,#f1f3f1 0 1px,#626a6e 1.4px 2.5px,transparent 2.9px) 1px calc(100% - 9px)/8px 8px no-repeat,
+  radial-gradient(circle,#f1f3f1 0 1px,#626a6e 1.4px 2.5px,transparent 2.9px) calc(100% - 9px) calc(100% - 9px)/8px 8px no-repeat
+}
+.hero-card[data-rank="0"]{
+ border:2px solid #8f999b;
+ border-radius:10px;
+ box-shadow:inset 0 1px #f4f6f230,inset 0 0 0 1px #343c40,0 3px 9px #0009
+}
+
 </style>
 </head>
 <body>
