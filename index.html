@@ -567,6 +567,10 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 .hero-avatar[data-rank="5"]::after,.hero-profile .hero-avatar[data-rank="5"]::after{content:"";position:absolute;inset:0;z-index:3;border-radius:inherit;pointer-events:none;border:1px solid #fff1a9d9;box-shadow:inset 0 0 0 3px #8b5b12aa;background:radial-gradient(circle,#fff 0 1px,#ffe05a 1.5px 4px,transparent 4.2px) 1px 1px/12px 12px no-repeat,radial-gradient(circle,#fff 0 1px,#ffe05a 1.5px 4px,transparent 4.2px) calc(100% - 13px) 1px/12px 12px no-repeat,radial-gradient(circle,#fff 0 1px,#ffe05a 1.5px 4px,transparent 4.2px) 1px calc(100% - 13px)/12px 12px no-repeat,radial-gradient(circle,#fff 0 1px,#ffe05a 1.5px 4px,transparent 4.2px) calc(100% - 13px) calc(100% - 13px)/12px 12px no-repeat}
 .hero-avatar[data-rank="0"] svg,.hero-avatar[data-rank="1"] svg,.hero-avatar[data-rank="2"] svg,.hero-avatar[data-rank="3"] svg,.hero-avatar[data-rank="4"] svg,.hero-avatar[data-rank="5"] svg{position:relative;z-index:1}
 
+
+/* Keep the frame bevel visible above portrait image rules from legacy slots */
+.agathion-item .inventory-item-icon.agathion-portrait-frame .agathion-photo,
+.amulet-slots .agathion-slot.filled .gear-slot-icon.agathion-portrait-frame .agathion-photo{inset:4px;width:calc(100% - 8px);height:calc(100% - 8px);object-fit:cover;object-position:center 35%;border-radius:2px}
 </style>
 </head>
 <body>
