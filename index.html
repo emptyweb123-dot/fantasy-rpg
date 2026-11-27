@@ -602,6 +602,18 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 .battle-agathion-card:not(.empty) .battle-agathion-label{display:none}
 .battle-agathion-card:not(.empty) .battle-health{position:absolute;top:calc(100% + 3px);left:0;width:100%;max-width:none;height:12px;margin:0;z-index:5}
 .battle-agathion-card.mara-support:not(.empty){width:min(100%,96px);height:auto;aspect-ratio:1/1;display:block;padding:0;overflow:visible;border:0;background:transparent;box-shadow:none}
+
+/* Keep the battle agathion portrait square and integrate its health bar below it. */
+.battle-agathion-card.mara-support:not(.empty){box-sizing:border-box;position:relative;width:min(100%,96px);height:auto;aspect-ratio:auto;display:grid;grid-template-rows:auto 15px;gap:0;padding:0;overflow:hidden;border:2px solid var(--battle-agathion-frame-color,#b66cff);border-radius:8px;background:#172027;box-shadow:0 0 0 1px #10171b,0 0 7px var(--battle-agathion-glow,#943de955)}
+.battle-agathion-card.mara-support:has(.agathion-portrait-frame[data-rank="0"]){--battle-agathion-frame-color:#b3bdc2;--battle-agathion-glow:#c4d1d733}
+.battle-agathion-card.mara-support:has(.agathion-portrait-frame[data-rank="1"]){--battle-agathion-frame-color:#55b7ff;--battle-agathion-glow:#328fe955}
+.battle-agathion-card.mara-support:has(.agathion-portrait-frame[data-rank="2"]){--battle-agathion-frame-color:#ef80c4;--battle-agathion-glow:#df57ab55}
+.battle-agathion-card.mara-support:has(.agathion-portrait-frame[data-rank="3"]){--battle-agathion-frame-color:#b66cff;--battle-agathion-glow:#943de955}
+.battle-agathion-card.mara-support:has(.agathion-portrait-frame[data-rank="4"]){--battle-agathion-frame-color:#ff594f;--battle-agathion-glow:#e5303055}
+.battle-agathion-card.mara-support:has(.agathion-portrait-frame[data-rank="5"]){--battle-agathion-frame-color:#ffe064;--battle-agathion-glow:#ffd04466}
+.battle-agathion-card.mara-support:not(.empty) .battle-agathion-portrait.agathion-portrait-frame[data-rank]{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:1/1;display:grid;overflow:hidden;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+.battle-agathion-card.mara-support:not(.empty) .battle-agathion-portrait.agathion-portrait-frame[data-rank] .agathion-photo{inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 34%;border-radius:0}
+.battle-agathion-card.mara-support:not(.empty) .mara-health{position:relative!important;top:auto!important;left:auto!important;align-self:stretch;width:100%!important;max-width:none!important;height:15px!important;min-width:0;margin:0!important;border:0!important;border-top:1px solid var(--battle-agathion-frame-color,#b66cff)!important;border-radius:0!important}
 </style>
 </head>
 <body>
