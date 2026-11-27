@@ -583,6 +583,18 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 
 /* Keep the legendary portrait frame square in the compact battle slot. */
 .battle-hero-card.main .hero-avatar[data-rank="3"]{box-sizing:border-box;width:min(100%,166px);height:min(100%,166px);aspect-ratio:1/1;flex:0 0 auto}
+
+/* Agathions keep thin, clean rank-colored outlines; decorative frame art is hero-only. */
+.agathion-portrait-frame[data-rank="0"]{--agathion-rank-color:#b3bdc2;--agathion-rank-glow:#c4d1d733}
+.agathion-portrait-frame[data-rank="1"]{--agathion-rank-color:#55b7ff;--agathion-rank-glow:#328fe955}
+.agathion-portrait-frame[data-rank="2"]{--agathion-rank-color:#ef80c4;--agathion-rank-glow:#df57ab55}
+.agathion-portrait-frame[data-rank="3"]{--agathion-rank-color:#b66cff;--agathion-rank-glow:#943de955}
+.agathion-portrait-frame[data-rank="4"]{--agathion-rank-color:#ff594f;--agathion-rank-glow:#e5303055}
+.agathion-portrait-frame[data-rank="5"]{--agathion-rank-color:#ffe064;--agathion-rank-glow:#ffd04466}
+.agathion-portrait-frame[data-rank]{overflow:hidden!important;border:2px solid var(--agathion-rank-color,#67b8a5)!important;border-radius:7px!important;background:#172027!important;box-shadow:0 0 0 1px #10171b,0 0 6px var(--agathion-rank-glow,#67b8a544)!important}
+.agathion-portrait-frame[data-rank]::before,.agathion-portrait-frame[data-rank]::after{content:none!important}
+.agathion-portrait-frame[data-rank] .agathion-photo{position:absolute;inset:2px!important;width:calc(100% - 4px)!important;height:calc(100% - 4px)!important;object-fit:cover;object-position:center 35%;border-radius:3px}
+.battle-agathion-card.mara-support .battle-agathion-portrait.agathion-portrait-frame[data-rank] .agathion-photo{inset:2px!important;width:calc(100% - 4px)!important;height:calc(100% - 4px)!important;border-radius:3px}
 </style>
 </head>
 <body>
