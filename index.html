@@ -333,12 +333,22 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 .campaign-hero.selected .campaign-hero-check{border-color:#ecd17d;background:#b1863f;color:#fff3c2}
 .campaign-party-count{margin:8px 0 0;color:#e5c88e;font:bold 11px Arial,sans-serif;text-align:center}
 @media(max-width:520px){.campaign-content{padding:12px 9px calc(16px + env(safe-area-inset-bottom))}.campaign-stage-title{font-size:22px}.campaign-panel{padding:10px}.campaign-enemies{grid-template-columns:repeat(8,minmax(0,1fr));gap:4px}.campaign-enemy-icon{width:clamp(28px,10vw,42px);height:clamp(28px,10vw,42px);font-size:clamp(18px,6vw,26px)}.campaign-enemy.primary .campaign-enemy-icon{width:clamp(38px,13vw,54px);height:clamp(38px,13vw,54px);font-size:clamp(24px,8vw,34px)}.campaign-deck-slots,.campaign-hero-grid{gap:4px}.campaign-deck-slot{padding:2px}.campaign-deck-slot .hero-avatar{width:100%;max-width:48px}.campaign-roster-hero{padding:3px 1px}.campaign-roster-hero .hero-avatar{width:100%;max-width:48px}.campaign-hero-info-traits{font-size:11px}.campaign-party{grid-template-columns:1fr}.campaign-hero .hero-avatar{width:52px;height:52px}}
-#mapScreen{display:none;position:fixed;inset:0;z-index:4;flex-direction:column;background:#15202a;color:#f2e6d0;font-family:Georgia,serif}
+#mapScreen{display:none;position:fixed;inset:0;z-index:4;flex-direction:column;background:#15202a;color:#f2e6d0;font-family:Georgia,serif}#mapScreen[data-map-mode="overview"] .map-chapters,#mapScreen[data-map-mode="adventure"] .map-chapters{display:none}#mapScreen[data-map-mode="adventure"] .map-chapter-title,#mapScreen[data-map-mode="adventure"] .map-stage{visibility:hidden;pointer-events:none}
 #mapScreen.active{display:flex}
 .map-header{flex:none;display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:10px;padding:calc(10px + env(safe-area-inset-top)) 14px 12px;background:#0c1118f2;border-bottom:1px solid #54768b;box-shadow:0 6px 20px #0008;z-index:2}
  .map-mode-switch{flex:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%;box-sizing:border-box;padding:8px 12px;background:#101a22;border-bottom:1px solid #527085}
 .map-mode-switch button{width:100%;min-width:0;min-height:44px;box-sizing:border-box;padding:8px;border:1px solid #806440;border-radius:7px;background:linear-gradient(#493923,#241d17);color:#f1dbad;font:bold 12px Arial,sans-serif;letter-spacing:.04em}
 .map-mode-switch button:active{border-color:#efd17d;background:linear-gradient(#76552d,#3a2919)}
+.map-mode-switch button.active{border-color:#efd17d;background:linear-gradient(#76552d,#3a2919);color:#fff0c4;box-shadow:0 0 10px #f0ca6566,inset 0 1px #fff5}
+.map-chapters[hidden]{display:none}
+.adventure-boss-panel{position:absolute;z-index:3;top:22px;left:12px;right:12px;width:min(520px,calc(100% - 24px));margin:0 auto;padding:12px;border:2px solid #b99055;border-radius:11px;background:linear-gradient(145deg,#392c22f2,#131c24f5);box-shadow:0 8px 22px #000a}
+.adventure-boss-panel[hidden]{display:none}
+.adventure-boss-card{width:100%;min-height:88px;display:grid;grid-template-columns:64px minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px;border:2px solid #b88852;border-radius:9px;background:linear-gradient(115deg,#55402b,#1b2630);color:#f6e4c3;text-align:left;text-transform:none;letter-spacing:0;box-shadow:inset 0 1px #fff3,0 4px 12px #0008}
+.adventure-boss-card.selected{border-color:#e3c86f;box-shadow:0 0 0 2px #e3c86f66,0 0 18px #f1c95b66,inset 0 1px #fff5}
+.adventure-boss-icon{width:60px;height:60px;display:grid;place-items:center;border:2px solid #d3ad5f;border-radius:9px;background:radial-gradient(circle at 40% 30%,#7f4a67,#20232d 72%);font-size:37px}
+.adventure-boss-info{display:flex;flex-direction:column;gap:5px;min-width:0}.adventure-boss-info strong{font:bold 16px Georgia,serif;color:#f3d39b}.adventure-boss-info span{color:#c9d2d3;font:12px Arial,sans-serif}
+.adventure-boss-loot{padding:6px 8px;border:1px solid #66bde2;border-radius:7px;background:#123446;color:#dff5ff;font:bold 11px Arial,sans-serif;white-space:nowrap}
+.adventure-boss-note{margin:9px 2px 0;color:#b9dce9;font:12px/1.4 Arial,sans-serif;text-align:center}
 .map-header h2{margin:0;text-align:center;color:#e5c58e;font:bold 19px Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
 .map-back{width:44px;height:44px;padding:0;border:1px solid #58778d;border-radius:7px;background:linear-gradient(#314d61,#172a38);color:#f4e4c7;font:30px/1 Arial,sans-serif}
 .map-chapters{flex:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;width:100%;box-sizing:border-box;padding:8px;background:#101a22;border-bottom:1px solid #527085}
@@ -736,15 +746,16 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
  </nav>
  <div class="inventory-items" id="inventoryItems" aria-label="Список предметов"><p class="inventory-empty" id="inventoryEmpty">Инвентарь пока пуст</p></div>
 </section>
-<section id="mapScreen" aria-label="Карта уровней">
+<section id="mapScreen" data-map-mode="overview" aria-label="Карта уровней">
  <header class="map-header">
   <button class="map-back" id="closeMap" type="button" aria-label="Назад">‹</button>
   <h2>Карта</h2>
   <span aria-hidden="true"></span>
  </header>
- <nav class="map-mode-switch" aria-label="Режим карты"><button type="button" id="mapOpenCampaign">Кампания</button><button type="button" id="mapOpenAdventure">Приключения</button></nav>
- <nav class="map-chapters" id="mapChapters" aria-label="Выбор главы"></nav>
+ <nav class="map-mode-switch" aria-label="Режим карты"><button type="button" id="mapOpenCampaign" aria-pressed="false">Кампания</button><button type="button" id="mapOpenAdventure" aria-pressed="false">Приключения</button></nav>
+ <nav class="map-chapters" id="mapChapters" aria-label="Выбор главы" hidden></nav>
  <div class="map-scroll" id="mapScroll" tabindex="0" aria-label="Прокручиваемая карта уровней">
+  <section class="adventure-boss-panel" id="adventureBossPanel" aria-label="Боссы приключений" hidden><button class="adventure-boss-card" id="adventureElfBoss" type="button" aria-pressed="false"><span class="adventure-boss-icon" aria-hidden="true">🧝</span><span class="adventure-boss-info"><strong>Злобный эльф</strong><span>Босс приключения · фарм маны</span></span><span class="adventure-boss-loot">🧪 Добыча: мана</span></button><p class="adventure-boss-note" id="adventureBossStatus">Выберите босса, чтобы посмотреть награду.</p></section>
   <div class="map-world">
    <div class="map-chapter-title" id="mapChapterTitle">Глава 1 · этапы 1–10</div>
    <svg class="map-art" viewBox="0 0 400 1550" preserveAspectRatio="none" aria-hidden="true">
@@ -766,10 +777,6 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
    <div class="map-stages" id="mapStages" aria-label="Этапы главы"></div>
   </div>
  </div>
-</section>
-<section class="hero-subscreen" id="adventureScreen" aria-label="Приключения">
- <header class="subscreen-header"><button class="subscreen-back" id="closeAdventure" type="button" aria-label="Назад к карте">‹</button><h2>Приключения</h2><span aria-hidden="true"></span></header>
- <div class="hero-subscreen-content"><p class="empty-inventory">Приключения появятся здесь позже.</p></div>
 </section>
 <section class="hero-subscreen" id="forgeScreen" aria-label="Кузня">
  <header class="subscreen-header"><button class="subscreen-back" id="closeForge" type="button" aria-label="Назад">‹</button><h2>Кузня</h2><span aria-hidden="true"></span></header>
@@ -1033,11 +1040,12 @@ function campaignProgressFor(save){
 function campaignStageCleared(progress,chapter,level){return chapter<progress.unlockedChapter||progress.clearedLevels.includes(`${chapter}-${level}`)}
 function campaignStageAvailable(progress,chapter,level){if(chapter<progress.unlockedChapter)return true;if(chapter>progress.unlockedChapter)return false;const cleared=progress.clearedLevels.filter(key=>key.startsWith(`${chapter}-`)).map(key=>Number(key.split('-')[1]));const nextStage=Math.max(0,...cleared)+1;return level<=Math.min(10,nextStage)}
 function selectCampaignStage(chapter,level){const save=loadSave();if(!save)return;const progress=campaignProgressFor(save);if(!campaignStageAvailable(progress,chapter,level))return;save.campaignTarget={chapter,level};localStorage.setItem('ashKingdomsSave',JSON.stringify(save));selectedMapChapter=chapter;mapScreen.classList.remove('active');campaignReturnToMap=true;renderCampaign();campaignScreen.classList.add('active')}
-document.getElementById('openMap').onclick=()=>{const save=loadSave();if(!save)return;const progress=campaignProgressFor(save);selectedMapChapter=progress.currentChapter;save.campaignTarget={chapter:progress.currentChapter,level:progress.currentLevel};localStorage.setItem('ashKingdomsSave',JSON.stringify(save));renderMap(selectedMapChapter);mapScreen.classList.add('active')};
+function setMapMode(mode){mapScreen.dataset.mapMode=mode;const campaign=mode==='campaign',adventure=mode==='adventure';document.getElementById('mapOpenCampaign').classList.toggle('active',campaign);document.getElementById('mapOpenCampaign').setAttribute('aria-pressed',String(campaign));document.getElementById('mapOpenAdventure').classList.toggle('active',adventure);document.getElementById('mapOpenAdventure').setAttribute('aria-pressed',String(adventure));mapChapters.hidden=!campaign;document.getElementById('adventureBossPanel').hidden=!adventure;document.getElementById('mapChapterTitle').style.visibility=adventure?'hidden':'visible';mapScroll.scrollTop=0}
+document.getElementById('openMap').onclick=()=>{const save=loadSave();if(!save)return;const progress=campaignProgressFor(save);selectedMapChapter=progress.currentChapter;save.campaignTarget={chapter:progress.currentChapter,level:progress.currentLevel};localStorage.setItem('ashKingdomsSave',JSON.stringify(save));renderMap(selectedMapChapter);setMapMode('overview');mapScreen.classList.add('active')};
 document.getElementById('closeMap').onclick=()=>mapScreen.classList.remove('active');
-document.getElementById('mapOpenCampaign').onclick=()=>{const save=loadSave();if(!save)return;const progress=campaignProgressFor(save);selectedMapChapter=progress.currentChapter;save.campaignTarget={chapter:progress.currentChapter,level:progress.currentLevel};localStorage.setItem('ashKingdomsSave',JSON.stringify(save));campaignReturnToMap=true;mapScreen.classList.remove('active');renderCampaign();campaignScreen.classList.add('active')};
-document.getElementById('mapOpenAdventure').onclick=()=>{mapScreen.classList.remove('active');document.getElementById('adventureScreen').classList.add('active')};
-document.getElementById('closeAdventure').onclick=()=>{document.getElementById('adventureScreen').classList.remove('active');mapScreen.classList.add('active')};
+document.getElementById('mapOpenCampaign').onclick=()=>{const save=loadSave();if(!save)return;const progress=campaignProgressFor(save);selectedMapChapter=progress.currentChapter;save.campaignTarget={chapter:progress.currentChapter,level:progress.currentLevel};localStorage.setItem('ashKingdomsSave',JSON.stringify(save));renderMap(selectedMapChapter);setMapMode('campaign')};
+document.getElementById('mapOpenAdventure').onclick=()=>setMapMode('adventure');
+document.getElementById('adventureElfBoss').onclick=()=>{const button=document.getElementById('adventureElfBoss');button.classList.add('selected');button.setAttribute('aria-pressed','true');document.getElementById('adventureBossStatus').textContent='Злобный эльф выбран · добыча за победу: мана.'};
 document.getElementById('openForge').onclick=()=>{document.getElementById('forgeMessage').textContent='Выберите раздел кузни.';document.getElementById('forgeScreen').classList.add('active')};document.getElementById('closeForge').onclick=()=>document.getElementById('forgeScreen').classList.remove('active');document.querySelectorAll('[data-forge-section]').forEach(button=>button.onclick=()=>{document.getElementById('forgeMessage').textContent=button.dataset.forgeSection+' — рецепты и материалы появятся здесь позже.'});
 document.getElementById('openStore').onclick=()=>{document.getElementById('storeScreen').classList.add('active');refreshManaStore()};document.getElementById('closeStore').onclick=()=>document.getElementById('storeScreen').classList.remove('active');document.querySelectorAll('[data-store-tab]').forEach(button=>button.onclick=()=>{const tab=button.dataset.storeTab;document.querySelectorAll('[data-store-tab]').forEach(item=>{const active=item===button;item.classList.toggle('active',active);item.setAttribute('aria-selected',String(active))});document.getElementById('storeBuyPanel').hidden=tab!=='buy';document.getElementById('storeSellPanel').hidden=tab!=='sell';document.getElementById('storeExchangePanel').hidden=tab!=='exchange';if(tab==='buy')refreshManaStore()});
 function refreshManaStore(){const input=document.getElementById('manaBuyQuantity');if(!input)return;const quantity=Math.max(1,Math.min(9999,Math.floor(Number(input.value)||1))),save=loadSave(),coins=Math.max(0,Math.floor(Number(save?.coins)||0)),total=quantity*1000;input.value=quantity;document.getElementById('manaBuyTotal').textContent='Итого: '+new Intl.NumberFormat('ru-RU').format(total)+' золота';const button=document.getElementById('buyManaButton');button.disabled=!save||coins<total;document.getElementById('storeBuyMessage').textContent=coins<total?'Не хватает '+new Intl.NumberFormat('ru-RU').format(total-coins)+' золота · доступно '+new Intl.NumberFormat('ru-RU').format(coins):'Золота доступно: '+new Intl.NumberFormat('ru-RU').format(coins)}
