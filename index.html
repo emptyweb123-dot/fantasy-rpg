@@ -568,6 +568,12 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 .hero-avatar[data-rank="0"] svg,.hero-avatar[data-rank="1"] svg,.hero-avatar[data-rank="2"] svg,.hero-avatar[data-rank="3"] svg,.hero-avatar[data-rank="4"] svg,.hero-avatar[data-rank="5"] svg{position:relative;z-index:1}
 
 
+/* First chroma-key frame asset: silver frame, shared by heroes and agathions. */
+.hero-avatar[data-rank="0"],.hero-profile .hero-avatar[data-rank="0"]{position:relative;overflow:visible!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+.hero-avatar[data-rank="0"]::after,.hero-profile .hero-avatar[data-rank="0"]::after{content:"";position:absolute;inset:-3%;z-index:4;border:0;border-radius:0;box-shadow:none;background:url("assets/frame-gray.webp") center/100% 100% no-repeat;pointer-events:none}
+.agathion-portrait-frame[data-rank="0"]{overflow:visible!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+.agathion-portrait-frame[data-rank="0"]::after{content:"";position:absolute;inset:-3%;z-index:4;border:0;border-radius:0;box-shadow:none;background:url("assets/frame-gray.webp") center/100% 100% no-repeat;pointer-events:none}
+
 /* Keep the frame bevel visible above portrait image rules from legacy slots */
 .agathion-item .inventory-item-icon.agathion-portrait-frame .agathion-photo,
 .amulet-slots .agathion-slot.filled .gear-slot-icon.agathion-portrait-frame .agathion-photo{inset:4px;width:calc(100% - 8px);height:calc(100% - 8px);object-fit:cover;object-position:center 35%;border-radius:2px}
