@@ -659,6 +659,10 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 .hero-avatar[data-rank="5"],.hero-profile .hero-avatar[data-rank="5"]{position:relative;overflow:visible!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
 .hero-avatar[data-rank="5"]::before,.hero-profile .hero-avatar[data-rank="5"]::before{content:none!important}
 .hero-avatar[data-rank="5"]::after,.hero-profile .hero-avatar[data-rank="5"]::after{content:"";position:absolute;inset:-4%;z-index:4;border:0;border-radius:0;box-shadow:none;background:url("assets/frame-gold.webp") center/100% 100% no-repeat;pointer-events:none}
+
+.map-campaign-action{display:none;flex:none;padding:8px 14px calc(10px + env(safe-area-inset-bottom));border-top:1px solid #54768b;background:#0c1118f2}
+#mapScreen[data-map-mode="campaign"] .map-campaign-action{display:block}
+.map-campaign-action button{width:100%;min-height:48px;border:1px solid #87de88;border-radius:8px;background:linear-gradient(180deg,#278943,#145b2c);color:#efffe5;font:bold 14px Arial,sans-serif;letter-spacing:.08em;box-shadow:inset 0 1px #ffffff35,0 3px 8px #0008}
 </style>
 </head>
 <body>
@@ -790,6 +794,7 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
    <div class="map-stages" id="mapStages" aria-label="Этапы главы"></div>
   </div>
  </div>
+ <div class="map-campaign-action" id="mapCampaignAction"><button type="button" id="mapCampaignBattle">В бой</button></div>
 </section>
 <section class="hero-subscreen" id="forgeScreen" aria-label="Кузня">
  <header class="subscreen-header"><button class="subscreen-back" id="closeForge" type="button" aria-label="Назад">‹</button><h2>Кузня</h2><span aria-hidden="true"></span></header>
@@ -1058,6 +1063,7 @@ document.getElementById('openMap').onclick=()=>{const save=loadSave();if(!save)r
 document.getElementById('closeMap').onclick=()=>mapScreen.classList.remove('active');
 document.getElementById('mapOpenCampaign').onclick=()=>{const save=loadSave();if(!save)return;const progress=campaignProgressFor(save);selectedMapChapter=progress.currentChapter;save.campaignTarget={chapter:progress.currentChapter,level:progress.currentLevel};localStorage.setItem('ashKingdomsSave',JSON.stringify(save));renderMap(selectedMapChapter);setMapMode('campaign')};
 document.getElementById('mapOpenAdventure').onclick=()=>setMapMode('adventure');
+document.getElementById('mapCampaignBattle').onclick=()=>{const save=loadSave();if(!save)return;const progress=campaignProgressFor(save),stored=save.campaignTarget||{chapter:progress.currentChapter,level:progress.currentLevel},chapter=selectedMapChapter,level=Number(stored.chapter)===chapter?stored.level:chapter===progress.currentChapter?progress.currentLevel:1;selectCampaignStage(chapter,level)};
 document.getElementById('adventureElfBoss').onclick=()=>{const button=document.getElementById('adventureElfBoss');button.classList.add('selected');button.setAttribute('aria-pressed','true');document.getElementById('adventureBossStatus').textContent='Злобный эльф выбран · добыча за победу: мана.'};
 document.getElementById('openForge').onclick=()=>{document.getElementById('forgeMessage').textContent='Выберите раздел кузни.';document.getElementById('forgeScreen').classList.add('active')};document.getElementById('closeForge').onclick=()=>document.getElementById('forgeScreen').classList.remove('active');document.querySelectorAll('[data-forge-section]').forEach(button=>button.onclick=()=>{document.getElementById('forgeMessage').textContent=button.dataset.forgeSection+' — рецепты и материалы появятся здесь позже.'});
 document.getElementById('openStore').onclick=()=>{document.getElementById('storeScreen').classList.add('active');refreshManaStore()};document.getElementById('closeStore').onclick=()=>document.getElementById('storeScreen').classList.remove('active');document.querySelectorAll('[data-store-tab]').forEach(button=>button.onclick=()=>{const tab=button.dataset.storeTab;document.querySelectorAll('[data-store-tab]').forEach(item=>{const active=item===button;item.classList.toggle('active',active);item.setAttribute('aria-selected',String(active))});document.getElementById('storeBuyPanel').hidden=tab!=='buy';document.getElementById('storeSellPanel').hidden=tab!=='sell';document.getElementById('storeExchangePanel').hidden=tab!=='exchange';if(tab==='buy')refreshManaStore()});
