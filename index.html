@@ -654,6 +654,11 @@ nav{display:grid;gap:12px;width:min(310px,100%);z-index:1}button{padding:15px 18
 .battle-agathion-card.mara-support:not(.empty) .battle-agathion-portrait.agathion-portrait-frame[data-rank]{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:1/1;display:grid;overflow:hidden;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
 .battle-agathion-card.mara-support:not(.empty) .battle-agathion-portrait.agathion-portrait-frame[data-rank] .agathion-photo{inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 34%;border-radius:0}
 .battle-agathion-card.mara-support:not(.empty) .mara-health{position:relative!important;top:auto!important;left:auto!important;align-self:stretch;width:100%!important;max-width:none!important;height:15px!important;min-width:0;margin:0!important;border:0!important;border-top:1px solid var(--battle-agathion-frame-color,#b66cff)!important;border-radius:0!important}
+
+/* Божественная золотая рамка с прозрачным хромакеем */
+.hero-avatar[data-rank="5"],.hero-profile .hero-avatar[data-rank="5"]{position:relative;overflow:visible!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+.hero-avatar[data-rank="5"]::before,.hero-profile .hero-avatar[data-rank="5"]::before{content:none!important}
+.hero-avatar[data-rank="5"]::after,.hero-profile .hero-avatar[data-rank="5"]::after{content:"";position:absolute;inset:-4%;z-index:4;border:0;border-radius:0;box-shadow:none;background:url("assets/frame-gold.webp") center/100% 100% no-repeat;pointer-events:none}
 </style>
 </head>
 <body>
